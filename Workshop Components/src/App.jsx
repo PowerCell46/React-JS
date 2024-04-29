@@ -274,6 +274,7 @@ function App() {
         setUsers={setUsers}
         userId={selectedUser}
         setSelectedUser={setSelectedUser}
+        users={users}
       /> 
     :
       null
