@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.error {
+  border: 2px solid darkred;
+}
+
+input {
+  margin: 0.5rem;
+}
