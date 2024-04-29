@@ -31,6 +31,21 @@ export const registerValidator = {
         }
 
         return true;
+    },
+    email: (value) => {
+        if (!value.includes("@")) {
+            return `Email must include "@" sign!`;
+        }
+
+        if (value.length < userRequirements.emailMinLen) {
+            return `Email length must be at least ${userRequirements.emailMinLen} characters!`;
+        }
+
+        if (value.length > userRequirements.emailMaxLen) {
+            return `Email length can be max ${userRequirements.emailMaxLen} characters!`;
+        }
+
+        return true;
     }
 }
 
@@ -41,5 +56,7 @@ const userRequirements = {
     passwordMinLen: 5,
     passwordMaxLen: 20,
     ageMinVal: 0,
-    ageMaxVal: 120
+    ageMaxVal: 120,
+    emailMinLen: 5,
+    emailMaxLen: 30
 }

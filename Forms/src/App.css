@@ -48,3 +48,7 @@
 input {
   margin: 0.5rem;
 }
+
+select {
+  margin: 1rem 0.5rem;
+}
