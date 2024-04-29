@@ -5,5 +5,5 @@ export default function Header() {
             <span className="course">React Workshop - September 2023</span>
         </div>
     </header>
-    )
+    );
 }

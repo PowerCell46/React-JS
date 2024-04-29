@@ -1,6 +1,6 @@
 import { BASE_SERVER_URL } from "../utils/constants";
 
-export default function Delete({userId, setSelectedUser, setUsers, setHiddenShownComp}) {
+export default function Delete({userId, setSelectedUser, setUsers, setHiddenShownComp, setFilteredUsers}) {
 
   const hideDeleteView = () => {
     setHiddenShownComp(prevVal => ({ ...prevVal, deleteView: false }));
@@ -25,7 +25,7 @@ export default function Delete({userId, setSelectedUser, setUsers, setHiddenShow
           </header>
           <div className="actions">
             <div id="form-actions">
-              <button onClick={() => deleteUserHandler(userId, setUsers, hideDeleteView)} id="action-save" className="btn" type="submit">Delete</button>
+              <button onClick={() => deleteUserHandler(userId, setUsers, hideDeleteView, setFilteredUsers)} id="action-save" className="btn" type="submit">Delete</button>
               <button onClick={() => hideDeleteView()} id="action-cancel" className="btn" type="button">
                 Cancel
               </button>
@@ -38,12 +38,13 @@ export default function Delete({userId, setSelectedUser, setUsers, setHiddenShow
 }
 
 
-function deleteUserHandler(userId, setUsers, hideDeleteView) {
+function deleteUserHandler(userId, setUsers, hideDeleteView, setFilteredUsers) {
     fetch(`${BASE_SERVER_URL}/users/${userId}`, 
     {method: "DELETE"})
     .then(response => response.json())
     .then(data => {
-      setUsers(prevVal => [...prevVal.filter(u => u._id !== userId)])
+      setUsers(prevVal => [...prevVal.filter(u => u._id !== userId)]);
+      setFilteredUsers(prevVal => [...prevVal.filter(u => u._id !== userId)]);
       hideDeleteView();
     })
     .catch(err => console.error(err));

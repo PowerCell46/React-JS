@@ -29,7 +29,7 @@ export function CreateEdit(props) {
             </button>
           </header>
           <form onSubmit={ 
-            (event) => createEditUserHandler(event, props.setUsers, hideCreateView, props.userId)}>
+            (event) => createEditUserHandler(event, props.setUsers, hideCreateView, props.userId, props.setFilteredUsers)}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First name</label>
@@ -119,7 +119,7 @@ export function CreateEdit(props) {
 }
 
 
-function createEditUserHandler(event, setUsers, hideCreateView, userId) {
+function createEditUserHandler(event, setUsers, hideCreateView, userId, setFilteredUsers) {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -145,6 +145,7 @@ function createEditUserHandler(event, setUsers, hideCreateView, userId) {
       .then(response => response.json())
       .then(data => {
         setUsers(prevVal => [...prevVal, data]);
+        setFilteredUsers(prevVal => [...prevVal, data]);
         hideCreateView()})
       .catch(err => console.error(err));
     
@@ -159,7 +160,9 @@ function createEditUserHandler(event, setUsers, hideCreateView, userId) {
       .then(response => response.json())
       .then(data => {
         setUsers(prevVal => [...prevVal.filter(u => u._id !== userId), data]);
-        hideCreateView()})
+        setFilteredUsers(prevVal => [...prevVal.filter(u => u._id !== userId), data]);
+        hideCreateView();
+      })
       .catch(err => console.error(err));
     }
 }
