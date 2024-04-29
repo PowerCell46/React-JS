@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Search({ users, setFilteredUsers }) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleChange = (event) => {
@@ -105,5 +105,3 @@ function searchSubmitHandler(event, setFilteredUsers) {
     setFilteredUsers(users => users.filter(u => u[criteria].toLowerCase().includes(search.toLowerCase())));
   }
 }
-
-

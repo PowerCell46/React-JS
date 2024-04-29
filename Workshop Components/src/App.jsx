@@ -6,7 +6,7 @@ import Details from "./components/Details";
 import Header from "./components/Header";
 import { BASE_SERVER_URL } from "./utils/constants";
 import TableRow from "./components/TableRow";
-import {EmptySearchTable, EmptyTable, ErrorFetchTable} from "./components/EmptyTable";
+import EmptyTable from "./components/EmptyTable";
 import Pagination from "./components/Pagination";
 import Search from "./components/Search";
 
@@ -28,7 +28,7 @@ function App() {
     }));
 }, []);
 
-useEffect(() => {
+  useEffect(() => {
     fetch(`${BASE_SERVER_URL}/users`)
     .then(response => response.json())
     .then(data => {
@@ -130,20 +130,20 @@ useEffect(() => {
 
           {/* Empty Search */}
             {users.length > 0 && !hiddenShownComp.spinner && filteredUsers.length === 0 ? 
-              <EmptySearchTable/>
+              <EmptyTable errorMessage="Empty Search"/>
             : 
               null
             }
 
           {/* Successfull fetch but no Data */}
-            {users.length === 0 && !hiddenShownComp.spinner ?
-                <EmptyTable/> 
+            {users.length === 0 && !hiddenShownComp.spinner && !hiddenShownComp.fetchError ?
+                <EmptyTable errorMessage="Empty Fetch"/>
               : 
                 null}
 
           {/* Unsuccessfull fetch */}
             {hiddenShownComp.fetchError && !hiddenShownComp.spinner ? 
-              <ErrorFetchTable/>
+              <EmptyTable errorMessage="Fetch Error"/>
             : 
               null
             }
