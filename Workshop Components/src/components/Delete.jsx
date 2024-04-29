@@ -1,5 +1,13 @@
-export default function Delete() {
-    return (
+import { BASE_SERVER_URL } from "../utils/constants";
+
+export default function Delete({userId, setSelectedUser, setUsers, setHiddenShownComp}) {
+
+  const hideDeleteView = () => {
+    setHiddenShownComp(prevVal => ({ ...prevVal, deleteView: false }));
+    setSelectedUser(undefined);
+  };
+  
+  return (
     <div className="overlay">
       <div className="backdrop"></div>
       <div className="modal">
@@ -17,8 +25,8 @@ export default function Delete() {
           </header>
           <div className="actions">
             <div id="form-actions">
-              <button id="action-save" className="btn" type="submit">Delete</button>
-              <button id="action-cancel" className="btn" type="button">
+              <button onClick={() => deleteUserHandler(userId, setUsers, hideDeleteView)} id="action-save" className="btn" type="submit">Delete</button>
+              <button onClick={() => hideDeleteView()} id="action-cancel" className="btn" type="button">
                 Cancel
               </button>
             </div>
@@ -27,4 +35,16 @@ export default function Delete() {
       </div>
     </div>
     )
+}
+
+
+function deleteUserHandler(userId, setUsers, hideDeleteView) {
+    fetch(`${BASE_SERVER_URL}/users/${userId}`, 
+    {method: "DELETE"})
+    .then(response => response.json())
+    .then(data => {
+      setUsers(prevVal => [...prevVal.filter(u => u._id !== userId)])
+      hideDeleteView();
+    })
+    .catch(err => console.error(err));
 }

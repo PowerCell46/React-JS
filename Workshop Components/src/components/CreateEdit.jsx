@@ -28,9 +28,8 @@ export function CreateEdit(props) {
               </svg>
             </button>
           </header>
-          <form onSubmit={view === "Create" ? 
-            (event) => createUserHandler(event, props.setUsers, hideCreateView) : 
-            (event) => editUserHandler(event, props.setUsers, hideCreateView)}>
+          <form onSubmit={ 
+            (event) => createEditUserHandler(event, props.setUsers, hideCreateView, props.userId)}>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First name</label>
@@ -119,9 +118,8 @@ export function CreateEdit(props) {
     )
 }
 
-// on hide also remove the selected user from the state!!!
 
-function createUserHandler(event, setUsers, hideCreateView) {
+function createEditUserHandler(event, setUsers, hideCreateView, userId) {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -136,24 +134,32 @@ function createUserHandler(event, setUsers, hideCreateView) {
       return alert(validUserData);
     }
 
-    fetch(`${BASE_SERVER_URL}/users`, {
-      method: "POST", 
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(
-      {firstName, lastName, email, imageUrl, phoneNumber, createdAt: new Date(), updatedAt: new Date(), 
-      address: {country, city, street, streetNumber}})  
-    })
-    .then(response => response.json())
-    .then(data => {
-      setUsers(prevVal => [...prevVal, data]);
-      hideCreateView()})
-    .catch(err => console.error(err));
-}
-
-// on hide also remove the selected user from the state!!!
-
-function editUserHandler(event, setUsers, hideCreateView) {
-  event.preventDefault();
-
-  console.log("EDIT");
+    if (userId === undefined) {
+      fetch(`${BASE_SERVER_URL}/users`, {
+        method: "POST", 
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(
+        {firstName, lastName, email, imageUrl, phoneNumber, createdAt: new Date(), updatedAt: new Date(), 
+        address: {country, city, street, streetNumber}})  
+      })
+      .then(response => response.json())
+      .then(data => {
+        setUsers(prevVal => [...prevVal, data]);
+        hideCreateView()})
+      .catch(err => console.error(err));
+    
+    } else {
+      fetch(`${BASE_SERVER_URL}/users/${userId}`, {
+        method: "PATCH", 
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(
+        {firstName, lastName, email, imageUrl, phoneNumber, updatedAt: new Date(), 
+        address: {country, city, street, streetNumber}})  
+      })
+      .then(response => response.json())
+      .then(data => {
+        setUsers(prevVal => [...prevVal.filter(u => u._id !== userId), data]);
+        hideCreateView()})
+      .catch(err => console.error(err));
+    }
 }

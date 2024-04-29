@@ -7,7 +7,7 @@ export const userDataReq = {
     emailMaxLen: 35,
     phoneNumberLength: 10,
     imageUrlStart: ['http://', 'https://'],
-    countryMinLen: 4,
+    countryMinLen: 3,
     countryMaxLen: 20,
     cityMinLen: 1,
     cityMaxLen: 30,
