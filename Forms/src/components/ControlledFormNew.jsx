@@ -42,7 +42,7 @@ export default function ControlledFormNew() {
         }
 
         const validationResult = registerValidator[fieldName](value);
-        
+        console.log(validationResult);
         if (validationResult !== true) {
             setErrors(prev => ({...prev, [fieldName]: true}));
             setErrorMessage(validationResult);

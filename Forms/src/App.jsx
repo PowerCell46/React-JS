@@ -10,10 +10,10 @@ function App() {
   return (
     <>
       {/* <UncontrolledForm/> */}
-      <ControlledForm formRef={formRef}/>
-      {/* <ControlledFormNew/> */}
+      {/* <ControlledForm formRef={formRef}/> */}
+      <ControlledFormNew/>
 
-      <button onClick={() => formRef.current.submit()}>Register</button>
+      {/* <button onClick={() => formRef.current.submit()}>Register</button> */}
     </>
   )
 }

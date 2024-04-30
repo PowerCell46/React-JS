@@ -58,5 +58,5 @@ const userRequirements = {
     ageMinVal: 0,
     ageMaxVal: 120,
     emailMinLen: 5,
-    emailMaxLen: 30
+    emailMaxLen: 30,
 }

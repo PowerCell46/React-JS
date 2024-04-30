@@ -4,3 +4,7 @@
     - **npm create vite@latest .**
 - In a nested Folder:
     - **npm create vite@latest**
+
+
+# Install React Router DOM
+- **npm i react-router-dom**   
