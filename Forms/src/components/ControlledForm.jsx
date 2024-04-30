@@ -2,7 +2,7 @@ import { useState } from "react";
 import { registerValidator } from "../controlledFormValidator";
 
 
-export default function ControlledForm() {
+export default function ControlledForm({formRef}) {
     const [fields, setFields] = useState({
         username: "",
         password: "",
@@ -58,7 +58,7 @@ export default function ControlledForm() {
         <>
         
         <h1>Uncontrolled Form</h1>
-        <form onSubmit={submitHandler}>
+        <form ref={formRef} onSubmit={submitHandler}>
         
             <div>
                 <label htmlFor="username">Username:</label>
@@ -84,13 +84,16 @@ export default function ControlledForm() {
                 value={fields.age} type="number" name="age" id="age"/>
             </div>
 
-            <button disabled={
-                Object.values(errors).filter(e => e === true).length > 0 ||
-                Object.values(fields).filter(f => f === "").length !== 0
-            }>Register</button>
+            
 
         </form>
-        
+
+        {/* <button disabled={
+                Object.values(errors).filter(e => e === true).length > 0 ||
+                Object.values(fields).filter(f => f === "").length !== 0
+            }>Register
+        </button> */}
+
         {errorMessage.length > 0 ? <p>{errorMessage}</p> : null}
 
         </>
