@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { deleteGameController, getSingleGame } from "../controllers/gamesController";
 import { getUserId } from "../utils/authUtils";
 import {getGameComments, postCommentHandler} from "../controllers/commentsController";
-import Comment from "./Comment";
+import Comment from "../components/Comment";
 
 
 export default function Details() {
@@ -55,7 +55,7 @@ export default function Details() {
                 <h2>Comments:</h2>
                 {comments.length > 0 ?
                     <ul>
-                        {comments.map(comment => <Comment comment={comment.comment}/>)}
+                        {comments.map(comment => <Comment key={comment._id} comment={comment.comment}/>)}
                     </ul> 
                 :
                     <p className="no-comment">No comments.</p>

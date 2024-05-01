@@ -6,5 +6,5 @@ export default function Input({field, fieldName, fieldType, placeholder, onField
             onChange={(event) => onFieldChangeHandler(event, field)}
         />
         </>
-    )
+    );
 }

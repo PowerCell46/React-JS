@@ -1,15 +1,18 @@
 import { useState } from "react";
-import Input from "./Input";
+import Input from "../components/Input";
 import { gameHandler } from "../controllers/gamesController";
 import { useNavigate } from "react-router-dom";
+import TextArea from "../components/TextArea";
+
 
 const createFormFields = [
     {field: "title", fieldName: "Legendary Title", type: "text", placeholder: "Enter game title..."},
     {field: "category", fieldName: "Category", type: "text", placeholder: "Enter game category..."},
     {field: "maxLevel", fieldName: "MaxLevel", type: "number", placeholder: "1"},
     {field: "imageUrl", fieldName: "Image", type: "text", placeholder: "Upload a photo"},
-    {field: "summary", fieldName: "Summary", type: "text", placeholder: ""},
+    {field: "summary", fieldName: "Summary", type: "textarea", placeholder: ""},
 ];
+
 
 export default function Create({setGames}) {
     const navigate = useNavigate();
@@ -39,22 +42,29 @@ export default function Create({setGames}) {
                     <h1>Create Game</h1>
                     
                     {createFormFields
-                        .filter(f => f.field !== "summary")
-                        .map(formField => 
-                            <Input
-                                key={formField.field}
-                                field={formField.field}
-                                fieldName={formField.fieldName}
-                                fieldType={formField.type}
-                                placeholder={formField.placeholder}
-                                onFieldChangeHandler={onFieldChangeHandler}
-                            />
-                        )}
+                    .filter(f => f.type !== "textarea")
+                    .map(formField => 
+                        <Input
+                            key={formField.field}
+                            field={formField.field}
+                            fieldName={formField.fieldName}
+                            fieldType={formField.type}
+                            placeholder={formField.placeholder}
+                            value={fields[formField.field]}
+                            onFieldChangeHandler={onFieldChangeHandler}
+                        />
+                    )}
 
-                    <label htmlFor="summary">Summary:</label>
-                    <textarea onChange={(event) => 
-                        onFieldChangeHandler(event, "summary")} name="summary" id="summary">
-                    </textarea>
+                    {createFormFields
+                    .filter(f => f.type === "textarea")
+                    .map(formField => 
+                        <TextArea 
+                            key={formField.field}
+                            field={formField.field}
+                            fieldName={formField.fieldName}
+                            onFieldChangeHandler={onFieldChangeHandler}
+                        />
+                    )}
                     
                     <input className="btn submit" type="submit" value="Create Game"/>
                 </div>

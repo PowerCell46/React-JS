@@ -1,4 +1,4 @@
-import GameContainer from "./GameContainer";
+import GameContainer from "../components/GameContainer";
 
 
 export default function Catalogue({games}) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "./Input";
+import Input from "../components/Input";
 import { authenticationHandler } from "../controllers/authController";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,7 @@ const loginFormFields = [
     {field: "email", fieldName: "Email", type: "email", placeholder: "Sokka@gmail.com"},
     {field: "password", fieldName: "Password", type: "password"},
 ];
+
 
 export default function Login({setIsAuthenticated}) {
     const navigate = useNavigate();
@@ -52,5 +53,5 @@ export default function Login({setIsAuthenticated}) {
                 </div>
             </form>
         </section>
-    )
+    );
 }

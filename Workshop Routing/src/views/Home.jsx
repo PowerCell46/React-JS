@@ -1,4 +1,4 @@
-import GameCard from "./GameCard";
+import GameCard from "../components/GameCard";
 
 
 export default function Home({games}) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "./Input";
+import Input from "../components/Input";
 import { authenticationHandler } from "../controllers/authController";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ const registerFormFields = [
     {field: "confirm-password", fieldName: "Confirm Password", type: "password"}
 ];
 
+
 export default function Register({setIsAuthenticated}) {
     const navigate = useNavigate();
     const [fields, setFields] = useState(registerFormFields
@@ -19,7 +20,6 @@ export default function Register({setIsAuthenticated}) {
             return fields;
         }, {})
     );
-
 
     function onFieldChangeHandler(event, field) {
         setFields(prev => ({...prev, [field]: 
