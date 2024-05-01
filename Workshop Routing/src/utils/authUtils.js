@@ -1,4 +1,4 @@
-import { AUTH_TOKEN } from "./constants";
+import { AUTH_TOKEN, USER_ID } from "./constants";
 
 
 export const getAuthToken = () => {
@@ -6,13 +6,20 @@ export const getAuthToken = () => {
 }
 
 
-export const setAuthToken = (token) => {
-    localStorage.setItem(AUTH_TOKEN, token);
+export const getUserId = () => {
+    return localStorage.getItem(USER_ID);
 }
 
 
-export const removeAuthToken = () => {
+export const setAuthData = (token, id) => {
+    localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem(USER_ID, id);
+}
+
+
+export const removeAuthData = () => {
     localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(USER_ID);
 }
 
 

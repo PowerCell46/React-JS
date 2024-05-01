@@ -7,6 +7,8 @@ import { isUserAuthenticated } from "./utils/authUtils"
 import Home from "./components/Home"
 import Create from "./components/Create"
 import { getAllGames } from "./controllers/gamesController"
+import Details from "./components/Details"
+import Catalogue from "./components/Catalogue"
 
 
 function App() {
@@ -31,8 +33,12 @@ function App() {
 
           <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated}/>}/>
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>}/>
+
           <Route path="/" element={<Home games={games} />} />
-          <Route path="/create" element={<Create/>}/>
+          <Route path="/catalogue" element={<Catalogue games={games}/>}/>
+          
+          <Route path="/create" element={<Create setGames={setGames}/>}/>
+          <Route path="/details/:id" element={<Details/>}/>
 
           </Routes>
         </main>

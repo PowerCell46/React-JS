@@ -1,5 +1,6 @@
 export const AUTH_TOKEN = "token";
 
+export const USER_ID = "userId";
 
 const BASE_SERVER_URL = `http://localhost:3030`;
 

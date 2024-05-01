@@ -1,5 +1,5 @@
 import { post } from "../utils/api";
-import { removeAuthToken, setAuthToken } from "../utils/authUtils";
+import { removeAuthData, setAuthData } from "../utils/authUtils";
 import { routes } from "../utils/constants";
 
 
@@ -27,7 +27,7 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
     .then(data => {
         // console.log(data);
 
-        setAuthToken(data.accessToken);
+        setAuthData(data.accessToken, data._id);
 
         setIsAuthenticated(true);
 
@@ -40,7 +40,7 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
 export function logoutHandler(event, setIsAuthenticated, navigate) {
     event.preventDefault();
     
-    removeAuthToken();
+    removeAuthData();
 
     setIsAuthenticated(false);
 

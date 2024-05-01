@@ -11,7 +11,7 @@ const createFormFields = [
     {field: "summary", fieldName: "Summary", type: "text", placeholder: "Enter game title..."},
 ];
 
-export default function Create() {
+export default function Create({setGames}) {
     const navigate = useNavigate();
     const [fields, setFields] = useState(createFormFields
         .map(f => f.field)
@@ -33,7 +33,7 @@ export default function Create() {
 
     return (
         <section id="create-page" className="auth">
-            <form onSubmit={(event) => createGameHandler(event, fields, navigate)} id="create">
+            <form onSubmit={(event) => createGameHandler(event, fields, setGames, navigate)} id="create">
                 <div className="container">
 
                     <h1>Create Game</h1>
