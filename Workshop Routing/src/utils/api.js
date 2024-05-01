@@ -13,8 +13,7 @@ export function post(url, body) {
 
     const token = getAuthToken();
     
-    token ? headers["X-Authorization"] = JSON.parse(token) : null;
-
+    token ? headers["X-Authorization"] = token : null;
 
     return fetch(url, {
         method: "POST",

@@ -6,7 +6,9 @@ import { routes } from "../utils/constants";
 export function authenticationHandler(event, fields, view, setIsAuthenticated, navigate) {
     event.preventDefault();
 
-    const {email, password} = fields;
+    let {email, password} = fields;
+    email = email.trim(); password = password.trim();
+    // validations
 
     if (email === "" || password === "") {
         return alert("You cannot submit empty fields!");
@@ -14,7 +16,7 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
 
 
     if (view === "Register") {
-        const repeatPass = fields["confirm-password"]; 
+        const repeatPass = fields["confirm-password"].trim(); 
 
         if (password !== repeatPass) {
             return alert("Password and Repeat Password must match!");
@@ -23,7 +25,7 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
     
     post(view === "Login" ? routes.login : routes.register, {email, password})
     .then(data => {
-        console.log(data);
+        // console.log(data);
 
         setAuthToken(data.accessToken);
 
