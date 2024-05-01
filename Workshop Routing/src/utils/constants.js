@@ -10,3 +10,6 @@ export const routes = {
     login: `${BASE_SERVER_URL}/users/login`,
     games: `${BASE_SERVER_URL}/data/games`
 }
+
+
+export const headerToken = "X-Authorization";

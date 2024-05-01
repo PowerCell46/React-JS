@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { getSingleGame } from "../controllers/gamesController";
 import { getUserId } from "../utils/authUtils";
 
@@ -57,13 +57,12 @@ export default function Details() {
 
             {userId === game._ownerId ? 
                 <div className="buttons">
-                    <a href={`/edit/${id}`} className="button">Edit</a>
-                    <a href={`/delete/${id}`} className="button">Delete</a>
+                     <Link to={`/edit/${game._id}`} state={{game}} className="button">Edit</Link>
+                     <Link to={`/delete/${game._id}`} state={{game}} className="button">Delete</Link>
                 </div>
             : 
                 null    
             }
-            
         </div>
 
         {/* <!-- Bonus --> */}

@@ -9,6 +9,7 @@ import Create from "./components/Create"
 import { getAllGames } from "./controllers/gamesController"
 import Details from "./components/Details"
 import Catalogue from "./components/Catalogue"
+import Edit from "./components/Edit"
 
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
           
           <Route path="/create" element={<Create setGames={setGames}/>}/>
           <Route path="/details/:id" element={<Details/>}/>
+          <Route path="/edit/:id" element={<Edit setGames={setGames}/>}/>
+          {/* <Route path="/delete/:id" element={<De} */}
 
           </Routes>
         </main>
