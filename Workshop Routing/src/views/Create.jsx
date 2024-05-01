@@ -3,20 +3,13 @@ import Input from "../components/Input";
 import { gameHandler } from "../controllers/gamesController";
 import { useNavigate } from "react-router-dom";
 import TextArea from "../components/TextArea";
-
-
-const createFormFields = [
-    {field: "title", fieldName: "Legendary Title", type: "text", placeholder: "Enter game title..."},
-    {field: "category", fieldName: "Category", type: "text", placeholder: "Enter game category..."},
-    {field: "maxLevel", fieldName: "MaxLevel", type: "number", placeholder: "1"},
-    {field: "imageUrl", fieldName: "Image", type: "text", placeholder: "Upload a photo"},
-    {field: "summary", fieldName: "Summary", type: "textarea", placeholder: ""},
-];
+import { gameFormFields } from "../utils/formFields";
 
 
 export default function Create({setGames}) {
     const navigate = useNavigate();
-    const [fields, setFields] = useState(createFormFields
+
+    const [fields, setFields] = useState(gameFormFields
         .map(f => f.field)
         .reduce((fields, f) => {
             fields[f] = "";
@@ -24,10 +17,9 @@ export default function Create({setGames}) {
         }, {})  
     );
     
-
     function onFieldChangeHandler(event, field) {
         setFields(prev => ({...prev, [field]: 
-            createFormFields.find(f => f.field === field).type === "number" ? 
+            gameFormFields.find(f => f.field === field).type === "number" ? 
                 Number(event.target.value) 
             :
                 event.target.value
@@ -41,7 +33,7 @@ export default function Create({setGames}) {
 
                     <h1>Create Game</h1>
                     
-                    {createFormFields
+                    {gameFormFields
                     .filter(f => f.type !== "textarea")
                     .map(formField => 
                         <Input
@@ -55,7 +47,7 @@ export default function Create({setGames}) {
                         />
                     )}
 
-                    {createFormFields
+                    {gameFormFields
                     .filter(f => f.type === "textarea")
                     .map(formField => 
                         <TextArea 

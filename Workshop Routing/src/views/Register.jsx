@@ -2,17 +2,12 @@ import { useState } from "react";
 import Input from "../components/Input";
 import { authenticationHandler } from "../controllers/authController";
 import { useNavigate } from "react-router-dom";
-
-
-const registerFormFields = [
-    {field: "email", fieldName: "Email", type: "email", placeholder: "maria@email.com"},
-    {field: "password", fieldName: "Password", type: "password"},
-    {field: "confirm-password", fieldName: "Confirm Password", type: "password"}
-];
+import { registerFormFields } from "../utils/formFields";
 
 
 export default function Register({setIsAuthenticated}) {
     const navigate = useNavigate();
+    
     const [fields, setFields] = useState(registerFormFields
         .map(f => f.field)
         .reduce((fields, f) => {

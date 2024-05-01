@@ -3,8 +3,7 @@ export default function Input({field, fieldName, fieldType, placeholder, onField
         <>
             <label htmlFor={field}>{fieldName}:</label>
             <input type={fieldType} id={field} name={field} placeholder={placeholder ? placeholder : ""} defaultValue={value ? value : ""}
-            onChange={(event) => onFieldChangeHandler(event, field)}
-        />
+            onChange={(event) => onFieldChangeHandler(event, field)}/>
         </>
     );
 }

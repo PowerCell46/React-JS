@@ -15,13 +15,13 @@ export default function Home({games}) {
                 <h1>Latest Games</h1>
 
                 {games.length > 0 ? 
-                    games.reverse().slice(0, 3).map(game => 
+                    games
+                    .slice(0, 3).map(game => 
                         <GameCard key={game._id} game={game}/>
                     )                    
                 : 
                     <p className="no-articles">No games yet</p>
                 }
-
             </div>
         </section>
     );

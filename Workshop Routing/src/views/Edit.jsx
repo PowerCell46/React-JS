@@ -3,23 +3,14 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { gameHandler, getSingleGame } from "../controllers/gamesController";
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
-
-
-const editFormFields = [
-    {field: "title", fieldName: "Legendary Title", type: "text", placeholder: "Enter game title..."},
-    {field: "category", fieldName: "Category", type: "text", placeholder: "Enter game category..."},
-    {field: "maxLevel", fieldName: "MaxLevel", type: "number", placeholder: "1"},
-    {field: "imageUrl", fieldName: "Image", type: "text", placeholder: "Upload a photo"},
-    {field: "summary", fieldName: "Summary", type: "textarea", placeholder: ""},
-];
+import { gameFormFields } from "../utils/formFields";
 
 
 export default function Edit({setGames}) {
-    const navigate = useNavigate();
     const {id} = useParams();
+
     const [game, setGame] = useState({});
-    const location = useLocation();
-    const [fields, setFields] = useState(editFormFields
+    const [fields, setFields] = useState(gameFormFields
         .map(f => f.field)
         .reduce((fields, f) => {
             fields[f] = "";
@@ -27,13 +18,16 @@ export default function Edit({setGames}) {
         }, {id})  
     );
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const data = location.state?.game;
-   console.log(data);
+
     useEffect(() => {
         if (data) {
             setGame(data);
 
-            editFormFields
+            gameFormFields
                 .forEach(field => 
                     setFields(prevVal => 
                             ({...prevVal, [field.field]: data[field.field]})
@@ -45,7 +39,7 @@ export default function Edit({setGames}) {
             .then(data => {
                 setGame(data);
 
-                editFormFields
+                gameFormFields
                 .forEach(field => 
                     setFields(prevVal => 
                             ({...prevVal, [field.field]: data[field.field]})
@@ -58,7 +52,7 @@ export default function Edit({setGames}) {
 
     function onFieldChangeHandler(event, field) {
         setFields(prev => ({...prev, [field]: 
-            editFormFields.find(f => f.field === field).type === "number" ? 
+            gameFormFields.find(f => f.field === field).type === "number" ? 
                 Number(event.target.value) 
             :
                 event.target.value
@@ -72,7 +66,7 @@ export default function Edit({setGames}) {
 
                         <h1>Edit Game</h1>
 
-                        {editFormFields
+                        {gameFormFields
                         .filter(f => f.type !== "textarea")
                         .map(formField => 
                             <Input
@@ -86,7 +80,7 @@ export default function Edit({setGames}) {
                             />
                         )}
 
-                        {editFormFields
+                        {gameFormFields
                         .filter(f => f.type === "textarea")
                         .map(formField => 
                             <TextArea 
@@ -99,7 +93,6 @@ export default function Edit({setGames}) {
                         )}
                         
                         <input className="btn submit" type="submit" value="Edit Game"/>
-
                     </div>
                 </form>
             </section>

@@ -39,7 +39,7 @@ function App() {
             <Route path="/catalogue" element={<Catalogue games={games}/>}/>
             
             <Route path="/create" element={<Create setGames={setGames}/>}/>
-            <Route path="/details/:id" element={<Details/>}/>
+            <Route path="/details/:id" element={<Details setGames={setGames}/>}/>
             <Route path="/edit/:id" element={<Edit setGames={setGames}/>}/>
 
           </Routes>

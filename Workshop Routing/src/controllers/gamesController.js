@@ -3,7 +3,7 @@ import { routes } from "../utils/constants";
 
 
 export function getAllGames() {
-    return get(routes.games);
+    return get(routes.gamesOrdered);
 }
 
 
@@ -15,9 +15,13 @@ export function getSingleGame(id) {
 export function gameHandler(event, fields, view, setGames, navigate) {
     event.preventDefault();
 
-    const { title, category, maxLevel, imageUrl, summary } = fields;
-    // validations
+    let { title, category, maxLevel, imageUrl, summary } = fields;
+    title = title.trim(); category = category.trim(); 
+    imageUrl = imageUrl.trim(); summary = summary.trim();
 
+    if (title === "" || category === "" || maxLevel === "" || imageUrl === "" || summary === "") {
+        return alert("You cannot submit empty fields!");
+    }
 
     if (view === "Create") {
 
@@ -47,7 +51,7 @@ export function gameHandler(event, fields, view, setGames, navigate) {
 }
 
 
-export function deleteGameController(event, gameId, navigate) {
+export function deleteGameController(event, gameId, navigate, setGames) {
     event.preventDefault();
 
     const confirmation = confirm("Are you sure you want to delete this game?");
@@ -55,7 +59,7 @@ export function deleteGameController(event, gameId, navigate) {
     if (confirmation) {
         del(`${routes.games}/${gameId}`)
         .then(data => {
-            // console.log(data);
+            setGames(prev => prev.filter(game => game._id !== gameId));
 
             navigate("/");
         })

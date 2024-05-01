@@ -1,4 +1,4 @@
-import { post } from "../utils/api";
+import { get, post } from "../utils/api";
 import { removeAuthData, setAuthData } from "../utils/authUtils";
 import { routes } from "../utils/constants";
 
@@ -8,12 +8,10 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
 
     let {email, password} = fields;
     email = email.trim(); password = password.trim();
-    // validations
 
     if (email === "" || password === "") {
         return alert("You cannot submit empty fields!");
     }
-
 
     if (view === "Register") {
         const repeatPass = fields["confirm-password"].trim(); 
@@ -39,10 +37,14 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
 
 export function logoutHandler(event, setIsAuthenticated, navigate) {
     event.preventDefault();
-    
-    removeAuthData();
+ 
+    get(routes.logout)
+    .then(() => {
+        removeAuthData();
 
-    setIsAuthenticated(false);
-
-    navigate("/");
+        setIsAuthenticated(false);
+        
+        navigate("/");
+    })
+    .catch(err => console.error(err));
 }

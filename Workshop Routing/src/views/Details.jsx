@@ -6,15 +6,17 @@ import {getGameComments, postCommentHandler} from "../controllers/commentsContro
 import Comment from "../components/Comment";
 
 
-export default function Details() {
-    const navigate = useNavigate();
+export default function Details({setGames}) {
     const {id} = useParams();
-    const [game, setGame] = useState({});
-    const location = useLocation();
     const userId = getUserId();
-    const [comment, setComment] = useState("");
-    const [comments, setComments] = useState([]);
-
+    
+    const [game, setGame] = useState({}); // state for the Game Details Data
+    const [comment, setComment] = useState(""); // State for the comment that is being filled in
+    const [comments, setComments] = useState([]); // State for all of the Game Comments
+    
+    const navigate = useNavigate();
+    const location = useLocation();
+    
     const onCommentChangeHandler = (event) => setComment(event.target.value);
 
     const data = location.state?.game;
@@ -33,7 +35,6 @@ export default function Details() {
         .then(data => setComments(data))
         .catch(err => console.error(err));        
     }, []);
-
 
     return (
         <section id="game-details">
@@ -65,7 +66,7 @@ export default function Details() {
             {userId === game._ownerId ? 
                 <div className="buttons">
                      <Link to={`/edit/${game._id}`} state={{game}} className="button">Edit</Link>
-                     <Link onClick={(event) => deleteGameController(event, id, navigate)} className="button">Delete</Link>
+                     <Link onClick={(event) => deleteGameController(event, id, navigate, setGames)} className="button">Delete</Link>
                 </div>
             : 
                 null    
@@ -75,7 +76,7 @@ export default function Details() {
         {userId !== null && userId !== game._ownerId ? 
             <article className="create-comment">
                 <label>Add new comment:</label>
-                <form onSubmit={(event) => postCommentHandler(event, comment, id, setComments)} className="form">
+                <form onSubmit={(event) => postCommentHandler(event, comment, id, setComments, setComment)} className="form">
                     <textarea onChange={onCommentChangeHandler} name="comment" placeholder="Comment......" value={comment}></textarea>
                     <input className="btn submit" type="submit" value="Add Comment"/>
                 </form>

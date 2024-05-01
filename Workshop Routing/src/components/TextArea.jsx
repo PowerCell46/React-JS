@@ -3,7 +3,7 @@ export default function TextArea({field, fieldName, value, onFieldChangeHandler}
         <>
             <label htmlFor={field}>{fieldName}:</label>
             <textarea onChange={(event) => 
-                onFieldChangeHandler(event, field)} value={value ? value : ""} name={field} id={field}>
+                onFieldChangeHandler(event, field)} defaultValue={value ? value : ""} name={field} id={field}>
             </textarea>
         </>
     );
