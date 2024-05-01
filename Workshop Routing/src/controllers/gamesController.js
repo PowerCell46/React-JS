@@ -1,10 +1,11 @@
-import { get, post, put } from "../utils/api";
+import { del, get, post, put } from "../utils/api";
 import { routes } from "../utils/constants";
 
 
 export function getAllGames() {
     return get(routes.games);
 }
+
 
 export function getSingleGame(id) {
     return get(`${routes.games}/${id}`);
@@ -43,4 +44,21 @@ export function gameHandler(event, fields, view, setGames, navigate) {
         })
         .catch(err => console.error(err)); // notify the user
     }
+}
+
+
+export function deleteGameController(event, gameId, navigate) {
+    event.preventDefault();
+
+    const confirmation = confirm("Are you sure you want to delete this game?");
+
+    if (confirmation) {
+        del(`${routes.games}/${gameId}`)
+        .then(data => {
+            // console.log(data);
+
+            navigate("/");
+        })
+        .catch(err => console.error(err)); // notify the user
+    } 
 }

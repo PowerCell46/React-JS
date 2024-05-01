@@ -42,3 +42,19 @@ export function put(url, body) {
     .then(response => response.json())
     .catch(err => console.error(err));
 }
+
+
+export function del(url) {
+    const headers = {};
+
+    const token = getAuthToken();
+
+    token ? headers[headerToken] = token : null;
+
+    return fetch(url, {
+        method: "DELETE",
+        headers: headers,
+    })
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}

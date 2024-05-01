@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom"
-import { getSingleGame } from "../controllers/gamesController";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
+import { deleteGameController, getSingleGame } from "../controllers/gamesController";
 import { getUserId } from "../utils/authUtils";
+import {getGameComments, postCommentHandler} from "../controllers/commentsController";
+import Comment from "./Comment";
 
 
 export default function Details() {
+    const navigate = useNavigate();
     const {id} = useParams();
     const [game, setGame] = useState({});
     const location = useLocation();
     const userId = getUserId();
+    const [comment, setComment] = useState("");
+    const [comments, setComments] = useState([]);
+
+    const onCommentChangeHandler = (event) => setComment(event.target.value);
 
     const data = location.state?.game;
    
@@ -21,7 +28,12 @@ export default function Details() {
             .then(data => setGame(data))
             .catch(err => console.error(err)); // notify the user
         }
+
+        getGameComments(id)
+        .then(data => setComments(data))
+        .catch(err => console.error(err));        
     }, []);
+
 
     return (
         <section id="game-details">
@@ -39,41 +51,38 @@ export default function Details() {
                 {game.summary}
             </p>
 
-            {/* <!-- Bonus ( for Guests and Users ) --> */}
             <div className="details-comments">
                 <h2>Comments:</h2>
-                <ul>
-                    {/* <!-- list all comments for current game (If any) --> */}
-                    <li className="comment">
-                        <p>Content: I rate this one quite highly.</p>
-                    </li>
-                    <li className="comment">
-                        <p>Content: The best game.</p>
-                    </li>
-                </ul>
-                {/* <!-- Display paragraph: If there are no games in the database --> */}
-                <p className="no-comment">No comments.</p>
+                {comments.length > 0 ?
+                    <ul>
+                        {comments.map(comment => <Comment comment={comment.comment}/>)}
+                    </ul> 
+                :
+                    <p className="no-comment">No comments.</p>
+                }               
             </div>
 
             {userId === game._ownerId ? 
                 <div className="buttons">
                      <Link to={`/edit/${game._id}`} state={{game}} className="button">Edit</Link>
-                     <Link to={`/delete/${game._id}`} state={{game}} className="button">Delete</Link>
+                     <Link onClick={(event) => deleteGameController(event, id, navigate)} className="button">Delete</Link>
                 </div>
             : 
                 null    
             }
         </div>
 
-        {/* <!-- Bonus --> */}
-        {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-        {/* <article className="create-comment">
-            <label>Add new comment:</label>
-            <form className="form">
-                <textarea name="comment" placeholder="Comment......"></textarea>
-                <input className="btn submit" type="submit" value="Add Comment"/>
-            </form>
-        </article> */}
+        {userId !== null && userId !== game._ownerId ? 
+            <article className="create-comment">
+                <label>Add new comment:</label>
+                <form onSubmit={(event) => postCommentHandler(event, comment, id, setComments)} className="form">
+                    <textarea onChange={onCommentChangeHandler} name="comment" placeholder="Comment......" value={comment}></textarea>
+                    <input className="btn submit" type="submit" value="Add Comment"/>
+                </form>
+            </article>
+        : 
+            null
+        }
 
     </section>
     );
