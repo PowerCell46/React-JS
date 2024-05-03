@@ -23,15 +23,16 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
     
     post(view === "Login" ? routes.login : routes.register, {email, password})
     .then(data => {
-        // console.log(data);
-
         setAuthData(data.accessToken, data._id);
 
         setIsAuthenticated(true);
 
         navigate("/");
     })
-    .catch(err => console.error(err)); // notify the user
+    .catch(err => {
+        console.error(err.code, err.message);
+    });
+    
 }
 
 

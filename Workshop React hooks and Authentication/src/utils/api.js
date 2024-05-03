@@ -5,7 +5,7 @@ import { headerToken } from "./constants";
 export function get(url) {
     return fetch(url)
     .then(response => response.json())
-    .catch(err => console.error(err));
+    // .catch(err => console.error(err));
 }
 
 
@@ -22,8 +22,21 @@ export function post(url, body) {
         headers: headers,
         body: JSON.stringify(body)
     })
-    .then(response => response.json())
-    .catch(err => console.error(err));
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+
+        } else {
+            return response.json().then(errorData => {
+                alert(errorData.message);
+                throw errorData; 
+                
+            }).catch(() => {
+                const errorObject = { code: response.status, message: response.statusText };
+                throw errorObject;
+            });
+        }
+    });
 }
 
 
@@ -40,7 +53,7 @@ export function put(url, body) {
         body: JSON.stringify(body)
     })
     .then(response => response.json())
-    .catch(err => console.error(err));
+    // .catch(err => console.error(err));
 }
 
 
@@ -56,5 +69,5 @@ export function del(url) {
         headers: headers,
     })
     .then(response => response.json())
-    .catch(err => console.error(err));
+    // .catch(err => console.error(err));
 }

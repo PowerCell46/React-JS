@@ -1,29 +1,14 @@
-import { useState } from "react";
 import Input from "../components/Input";
 import { authenticationHandler } from "../controllers/authController";
 import { useNavigate } from "react-router-dom";
 import { registerFormFields } from "../utils/formFields";
+import useForm from "../hooks/useForm";
 
 
 export default function Register({setIsAuthenticated}) {
     const navigate = useNavigate();
     
-    const [fields, setFields] = useState(registerFormFields
-        .map(f => f.field)
-        .reduce((fields, f) => {
-            fields[f] = "";
-            return fields;
-        }, {})
-    );
-
-    function onFieldChangeHandler(event, field) {
-        setFields(prev => ({...prev, [field]: 
-            registerFormFields.find(f => f.field === field).type === "number" ? 
-                Number(event.target.value) 
-            :
-                event.target.value
-        }));
-    }
+    const {fields, onFieldChangeHandler} = useForm(registerFormFields);
 
     return (
         <section id="register-page" className="content auth">
