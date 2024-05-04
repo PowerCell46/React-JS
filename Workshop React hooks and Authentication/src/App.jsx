@@ -10,6 +10,8 @@ import { getAllGames } from "./controllers/gamesController"
 import Details from "./views/Details"
 import Catalogue from "./views/Catalogue"
 import Edit from "./views/Edit"
+import { AuthContext } from "./contexts/authContext"
+import { GamesContext } from "./contexts/gamesContext"
 
 
 function App() {
@@ -27,25 +29,31 @@ function App() {
 
   return (
     <>
-        <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-
+      <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+      
+      <AuthContext.Provider value={{ setIsAuthenticated }}>
+      <GamesContext.Provider value={{setGames}}>
+      
         <main id="main-content">
           <Routes>        
-
-            <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated}/>}/>
-            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>}/>
-
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/login" element={<Login/>}/>
+  
             <Route path="/" element={<Home games={games} />} />
             <Route path="/catalogue" element={<Catalogue games={games}/>}/>
             
-            <Route path="/create" element={<Create setGames={setGames}/>}/>
-            <Route path="/details/:id" element={<Details setGames={setGames}/>}/>
-            <Route path="/edit/:id" element={<Edit setGames={setGames}/>}/>
-
+            <Route path="/create" element={<Create/>}/>
+            <Route path="/details/:id" element={<Details/>}/>
+            <Route path="/edit/:id" element={<Edit/>}/>
           </Routes>
         </main>
+      
+      </GamesContext.Provider>
+      </AuthContext.Provider>
     </>
   );
+  
+  
 }
 
 export default App

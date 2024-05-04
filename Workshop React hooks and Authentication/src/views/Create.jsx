@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import TextArea from "../components/TextArea";
 import { gameFormFields } from "../utils/formFields";
 import useForm from "../hooks/useForm";
+import { useContext } from "react";
+import { GamesContext } from "../contexts/gamesContext";
 
 
-export default function Create({setGames}) {
+export default function Create() {
+    const {setGames} = useContext(GamesContext);
     const navigate = useNavigate();
 
     const {fields, onFieldChangeHandler} = useForm(gameFormFields);
@@ -19,26 +22,25 @@ export default function Create({setGames}) {
                     <h1>Create Game</h1>
                     
                     {gameFormFields
-                    .filter(f => f.type !== "textarea")
+                    .filter(f => f.fieldType !== "textarea")
                     .map(formField => 
-                        <Input
-                            key={formField.field}
-                            field={formField.field}
-                            fieldName={formField.fieldName}
-                            fieldType={formField.type}
-                            placeholder={formField.placeholder}
-                            value={fields[formField.field]}
-                            onFieldChangeHandler={onFieldChangeHandler}
+                        <Input 
+                        key={formField.fieldName}
+                        fieldName={formField.fieldName}
+                        fieldLabel={formField.fieldLabel}
+                        fieldType={formField.fieldType}
+                        placeholder={formField.placeholder}
+                        onFieldChangeHandler={onFieldChangeHandler}
                         />
                     )}
 
                     {gameFormFields
-                    .filter(f => f.type === "textarea")
+                    .filter(f => f.fieldType === "textarea")
                     .map(formField => 
                         <TextArea 
-                            key={formField.field}
-                            field={formField.field}
+                            key={formField.fieldName}
                             fieldName={formField.fieldName}
+                            fieldLabel={formField.fieldLabel}
                             onFieldChangeHandler={onFieldChangeHandler}
                         />
                     )}

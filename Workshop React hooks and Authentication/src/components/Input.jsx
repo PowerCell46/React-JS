@@ -1,9 +1,9 @@
-export default function Input({field, fieldName, fieldType, placeholder, onFieldChangeHandler, value}) {
+export default function Input({fieldName, fieldLabel, fieldType, placeholder, onFieldChangeHandler, value}) {
     return (
         <>
-            <label htmlFor={field}>{fieldName}:</label>
-            <input type={fieldType} id={field} name={field} placeholder={placeholder ? placeholder : ""} defaultValue={value ? value : ""}
-            onChange={(event) => onFieldChangeHandler(event, field)}/>
+            <label htmlFor={fieldName}>{fieldLabel}:</label>
+            <input type={fieldType} id={fieldName} name={fieldName} placeholder={placeholder ? placeholder : ""} defaultValue={value ? value : ""}
+            onChange={(event) => onFieldChangeHandler(event, fieldName)}/>
         </>
     );
 }

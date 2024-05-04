@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { gameHandler, getSingleGame } from "../controllers/gamesController";
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
 import { gameFormFields } from "../utils/formFields";
+import { GamesContext } from "../contexts/gamesContext";
+import useForm from "../hooks/useForm";
 
 
-export default function Edit({setGames}) {
+export default function Edit() {
+    const {setGames} = useContext(GamesContext);
     const {id} = useParams();
 
     const [game, setGame] = useState({});
-    const [fields, setFields] = useState(gameFormFields
-        .map(f => f.field)
-        .reduce((fields, f) => {
-            fields[f] = "";
-            return fields;
-        }, {id})  
-    );
+    const {fields, onFieldChangeHandler, setFields} = useForm(gameFormFields);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -30,7 +27,7 @@ export default function Edit({setGames}) {
             gameFormFields
                 .forEach(field => 
                     setFields(prevVal => 
-                            ({...prevVal, [field.field]: data[field.field]})
+                            ({...prevVal, [field.fieldName]: data[field.fieldName]})
                         )
                 );
 
@@ -42,22 +39,13 @@ export default function Edit({setGames}) {
                 gameFormFields
                 .forEach(field => 
                     setFields(prevVal => 
-                            ({...prevVal, [field.field]: data[field.field]})
+                            ({...prevVal, [field.fieldName]: data[field.fieldName]})
                         )
                 );
             })
             .catch(err => console.error(err)); // notify the user
         }
     }, []);
-
-    function onFieldChangeHandler(event, field) {
-        setFields(prev => ({...prev, [field]: 
-            gameFormFields.find(f => f.field === field).type === "number" ? 
-                Number(event.target.value) 
-            :
-                event.target.value
-        }));
-    }
 
     return (
         <section id="edit-page" className="auth">
@@ -67,27 +55,27 @@ export default function Edit({setGames}) {
                         <h1>Edit Game</h1>
 
                         {gameFormFields
-                        .filter(f => f.type !== "textarea")
+                        .filter(f => f.fieldType !== "textarea")
                         .map(formField => 
                             <Input
-                                key={formField.field}
-                                field={formField.field}
+                                key={formField.fieldName}
                                 fieldName={formField.fieldName}
-                                fieldType={formField.type}
+                                fieldLabel={formField.fieldLabel}
+                                fieldType={formField.fieldType}
                                 placeholder={formField.placeholder}
-                                value={fields[formField.field]}
+                                value={fields[formField.fieldName]}
                                 onFieldChangeHandler={onFieldChangeHandler}
                             />
                         )}
 
                         {gameFormFields
-                        .filter(f => f.type === "textarea")
+                        .filter(f => f.fieldType === "textarea")
                         .map(formField => 
                             <TextArea 
-                                key={formField.field}
-                                field={formField.field}
+                                key={formField.fieldName}
                                 fieldName={formField.fieldName}
-                                value={fields[formField.field]}
+                                fieldLabel={formField.fieldLabel}
+                                value={fields[formField.fieldName]}
                                 onFieldChangeHandler={onFieldChangeHandler}
                             />
                         )}

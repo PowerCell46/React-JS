@@ -1,20 +1,20 @@
 export const loginFormFields = [
-    {field: "email", fieldName: "Email", type: "email", placeholder: "Sokka@gmail.com"},
-    {field: "password", fieldName: "Password", type: "password"},
+    {fieldName: "email", fieldLabel: "Email", fieldType: "email", placeholder: "Sokka@gmail.com"},
+    {fieldName: "password", fieldLabel: "Password", fieldType: "password"},
 ];
 
 
 export const registerFormFields = [
-    {field: "email", fieldName: "Email", type: "email", placeholder: "maria@email.com"},
-    {field: "password", fieldName: "Password", type: "password"},
-    {field: "confirm-password", fieldName: "Confirm Password", type: "password"}
+    {fieldName: "email", fieldLabel: "Email", fieldType: "email", placeholder: "maria@email.com"},
+    {fieldName: "password", fieldLabel: "Password", fieldType: "password"},
+    {fieldName: "confirm-password", fieldLabel: "Confirm Password", fieldType: "password"}
 ];
 
 
 export const gameFormFields = [
-    {field: "title", fieldName: "Legendary Title", type: "text", placeholder: "Enter game title..."},
-    {field: "category", fieldName: "Category", type: "text", placeholder: "Enter game category..."},
-    {field: "maxLevel", fieldName: "MaxLevel", type: "number", placeholder: "1"},
-    {field: "imageUrl", fieldName: "Image", type: "text", placeholder: "Upload a photo"},
-    {field: "summary", fieldName: "Summary", type: "textarea", placeholder: ""},
+    {fieldName: "title", fieldLabel: "Legendary Title", fieldType: "text", placeholder: "Enter game title..."},
+    {fieldName: "category", fieldLabel: "Category", fieldType: "text", placeholder: "Enter game category..."},
+    {fieldName: "maxLevel", fieldLabel: "MaxLevel", fieldType: "number", placeholder: "1"},
+    {fieldName: "imageUrl", fieldLabel: "Image", fieldType: "text", placeholder: "Upload a photo"},
+    {fieldName: "summary", fieldLabel: "Summary", fieldType: "textarea", placeholder: ""},
 ];

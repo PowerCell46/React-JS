@@ -1,9 +1,9 @@
-export default function TextArea({field, fieldName, value, onFieldChangeHandler}) {
+export default function TextArea({fieldName, fieldLabel, value, onFieldChangeHandler}) {
     return (
         <>
-            <label htmlFor={field}>{fieldName}:</label>
+            <label htmlFor={fieldName}>{fieldLabel}:</label>
             <textarea onChange={(event) => 
-                onFieldChangeHandler(event, field)} defaultValue={value ? value : ""} name={field} id={field}>
+                onFieldChangeHandler(event, fieldName)} defaultValue={value ? value : ""} name={fieldName} id={fieldName}>
             </textarea>
         </>
     );

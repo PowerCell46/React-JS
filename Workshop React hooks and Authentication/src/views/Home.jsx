@@ -16,7 +16,7 @@ export default function Home({games}) {
 
                 {games.length > 0 ? 
                     games
-                    .slice(0, 3)
+                    // .slice(0, 3)
                     .map(game => 
                         <GameCard key={game._id} game={game}/>
                     )                    

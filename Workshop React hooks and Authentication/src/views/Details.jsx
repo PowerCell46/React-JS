@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { deleteGameController, getSingleGame } from "../controllers/gamesController";
 import { getUserId } from "../utils/authUtils";
 import {getGameComments, postCommentHandler} from "../controllers/commentsController";
 import Comment from "../components/Comment";
+import { GamesContext } from "../contexts/gamesContext";
 
 
-export default function Details({setGames}) {
+export default function Details() {
+    const {setGames} = useContext(GamesContext);
     const {id} = useParams();
     const userId = getUserId();
     
