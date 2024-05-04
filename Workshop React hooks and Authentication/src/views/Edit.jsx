@@ -12,7 +12,7 @@ export default function Edit() {
     const {setGames} = useContext(GamesContext);
     const {id} = useParams();
 
-    const [game, setGame] = useState({});
+    const [game, setGame] = useState({}); // State for the Game that is going to be Edited
     const {fields, onFieldChangeHandler, setFields} = useForm(gameFormFields);
 
     const navigate = useNavigate();
@@ -43,7 +43,9 @@ export default function Edit() {
                         )
                 );
             })
-            .catch(err => console.error(err)); // notify the user
+            .catch(err => {
+                console.error(err.code, err.message);
+            });
         }
     }, []);
 

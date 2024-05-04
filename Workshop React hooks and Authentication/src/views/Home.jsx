@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import GameCard from "../components/GameCard";
+import { GamesContext } from "../contexts/gamesContext";
 
 
-export default function Home({games}) {
+export default function Home() {
+    const {games} = useContext(GamesContext);
+    
     return (
         <section id="welcome-world">
 

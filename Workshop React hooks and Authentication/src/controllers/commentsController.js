@@ -10,8 +10,9 @@ export function postCommentHandler(event, comment, gameId, setComments, setComme
         setComments(prevVal => [...prevVal, data])
         setComment("");
     })
-    .catch(err => console.error(err)); // notify the user
-}
+    .catch(err => {
+        console.error(err.code, err.message);
+    });}
 
 
 export function getGameComments(gameId) {

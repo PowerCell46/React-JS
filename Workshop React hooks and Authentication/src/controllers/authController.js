@@ -32,7 +32,6 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
     .catch(err => {
         console.error(err.code, err.message);
     });
-    
 }
 
 
@@ -47,5 +46,7 @@ export function logoutHandler(event, setIsAuthenticated, navigate) {
         
         navigate("/");
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+        console.error(err.code, err.message);
+    });
 }

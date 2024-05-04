@@ -33,8 +33,10 @@ export function gameHandler(event, fields, view, setGames, navigate) {
             
             navigate("/");
         })
-        .catch(err => console.error(err)); // notify the user
-    
+        .catch(err => {
+            console.error(err.code, err.message);
+        });
+
     } else {
         const gameId = fields.id;
 
@@ -46,7 +48,9 @@ export function gameHandler(event, fields, view, setGames, navigate) {
 
             navigate(`/details/${gameId}`);
         })
-        .catch(err => console.error(err)); // notify the user
+        .catch(err => {
+            console.error(err.code, err.message);
+        });
     }
 }
 
@@ -63,6 +67,8 @@ export function deleteGameController(event, gameId, navigate, setGames) {
 
             navigate("/");
         })
-        .catch(err => console.error(err)); // notify the user
+        .catch(err => {
+            console.error(err.code, err.message);
+        });
     } 
 }

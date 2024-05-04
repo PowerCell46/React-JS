@@ -30,12 +30,16 @@ export default function Details() {
         } else {
             getSingleGame(id)
             .then(data => setGame(data))
-            .catch(err => console.error(err)); // notify the user
-        }
+            .catch(err => {
+                console.error(err.code, err.message);
+            });
+            }
 
         getGameComments(id)
         .then(data => setComments(data))
-        .catch(err => console.error(err));        
+        .catch(err => {
+            console.error(err.code, err.message);
+        });
     }, []);
 
     return (

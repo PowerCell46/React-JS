@@ -32,15 +32,15 @@ function App() {
       <Navigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
       
       <AuthContext.Provider value={{ setIsAuthenticated }}>
-      <GamesContext.Provider value={{setGames}}>
+      <GamesContext.Provider value={{ games, setGames}}>
       
         <main id="main-content">
           <Routes>        
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
   
-            <Route path="/" element={<Home games={games} />} />
-            <Route path="/catalogue" element={<Catalogue games={games}/>}/>
+            <Route path="/" element={<Home/>} />
+            <Route path="/catalogue" element={<Catalogue/>}/>
             
             <Route path="/create" element={<Create/>}/>
             <Route path="/details/:id" element={<Details/>}/>
