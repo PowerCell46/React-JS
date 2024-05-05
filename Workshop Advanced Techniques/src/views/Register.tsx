@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { registerFormFields } from "../utils/formFields";
 import useForm from "../hooks/useForm";
+import { authenticationHandler } from "../controllers/authController";
 
 
 export default function Register() {
@@ -13,7 +14,7 @@ export default function Register() {
           <img className="border" src="./images/border.png" alt="" />
           <h2>Register</h2>
 
-          <form className="register-form">
+          <form onSubmit={(event) => authenticationHandler(event, fields, "Register")} className="register-form">
             
             {registerFormFields.map(
                 field => 

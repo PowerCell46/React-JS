@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { loginFormFields } from "../utils/formFields";
 import useForm from "../hooks/useForm";
+import { authenticationHandler } from "../controllers/authController";
 
 
 export default function Login() {
@@ -13,7 +14,7 @@ export default function Login() {
           <img className="border" src="./images/border.png" alt="" />
           <h2>Login</h2>
 
-          <form className="login-form">
+          <form onSubmit={(event) => authenticationHandler(event, fields, "Login")} className="login-form">
 
             {loginFormFields.map(
                 field => 
