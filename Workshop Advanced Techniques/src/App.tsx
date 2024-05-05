@@ -1,260 +1,54 @@
+import { Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Create from "./views/Create";
+import Dashboard from "./views/Dashboard";
+import Details from "./views/Details";
+import Edit from "./views/Edit";
+import Home from "./views/Home";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import { AuthProvider } from "./contexts/authContext";
 
 
 function App() {
 
   return (
     <>
-        <div id="wrapper">
-      <header>
-        {/* <!-- Navigation --> */}
-        <a id="logo" href="#"
-          ><img id="logo-img" src="./images/logo2.png" alt="logo"/>
-        </a>
-        <nav>
-          <div>
-            <a href="#">Solutions</a>
-          </div>
+    <div id="wrapper">
 
-          {/* <!-- Logged-in users --> */}
-          <div className="user">
-            <a href="#">Add Solution</a>
-            <a href="#">Logout</a>
-          </div>
+  <AuthProvider>
+    
+    <Header/>
 
-          {/* <!-- Guest users --> */}
-          <div className="guest">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
-          </div>
-        </nav>
-      </header>
+        <main>
+        
+        <Routes>
+            <Route path="/" element={<Home/>} />
 
-      <main>
-        {/* <!-- Home page --> */}
 
-        <section id="home">
-          <h1>
-            Dive into our world of cutting-edge technologies and out-of-the-box
-            ideas designed to make Mother Nature smile again. From quirky
-            gadgets to serious solutions, we're here to show you that saving the
-            planet can be as exciting as it is essential. Join us in our mission
-            to turn "green" into more than just a color - it's a lifestyle!
-          </h1>
-          <img id="home-img" src="./images/logo.png" alt="home-img" />
-        </section>
+            <Route path="/register" element={<Register/>} />
 
-        {/* <!-- Dashboard page --> */}
-        <h2>Solutions</h2>
-        <section id="solutions">
-          {/* <!-- Display a div with information about every post (if any)--> */}
-          <div className="solution">
-            <img src="./images/Bioremediation.png" alt="example1" />
-            <div className="solution-info">
-              <h3 className="type">Bioremediation</h3>
-              <p className="description">
-                Synthetic biology involves the design and construction of
-                biological systems for useful purposes.
-              </p>
-              <a className="details-btn" href="#">Learn More</a>
-            </div>
-          </div>
-          <div className="solution">
-            <img src="./images/Nanotechnology.png" alt="example2" />
-            <div className="solution-info">
-              <h3 className="type">Nanotechnology</h3>
-              <p className="description">
-                Nanotechnology offers solutions for environmental cleanup due to
-                its ability to manipulate materials at the nanoscale
-              </p>
-              <a className="details-btn" href="">Learn More</a>
-            </div>
-          </div>
-          <div className="solution">
-            <img src="./images/Phytoremediation.png" alt="example3" />
-            <div className="solution-info">
-              <h3 className="type">Phytoremediation</h3>
-              <p className="description">
-                Phytoremediation is a green technology that utilizes plants to
-                remove contaminants from soil, water, and air.
-              </p>
-              <a className="details-btn" href="#">Learn More</a>
-            </div>
-          </div>
-        </section>
-        {/* <!-- Display an h2 if there are no posts --> */}
-        <h2 id="no-solution">No Solutions Added.</h2>
+            <Route path="/login" element={<Login/>} />
 
-        {/* <!-- Register Page (Only for Guest users) --> */}
-        <section id="register">
-          <div className="form">
-            <img className="border" src="./images/border.png" alt="" />
-            <h2>Register</h2>
-            <form className="register-form">
-              <input
-                type="text"
-                name="email"
-                id="register-email"
-                placeholder="email"
-              />
-              <input
-                type="password"
-                name="password"
-                id="register-password"
-                placeholder="password"
-              />
-              <input
-                type="password"
-                name="re-password"
-                id="repeat-password"
-                placeholder="repeat password"
-              />
-              <button type="submit">register</button>
-              <p className="message">Already registered? <a href="#">Login</a></p>
-            </form>
-          </div>
-        </section>
 
-        {/* <!-- Login Page (Only for Guest users) --> */}
-        <section id="login">
-          <div className="form">
-            <img className="border" src="./images/border.png" alt="" />
-            <h2>Login</h2>
-            <form className="login-form">
-              <input type="text" name="email" id="email" placeholder="email" />
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="password"
-              />
-              <button type="submit">login</button>
-              <p className="message">
-                Not registered? <a href="#">Create an account</a>
-              </p>
-            </form>
-          </div>
-        </section>
+            <Route path="/dashboard" element={<Dashboard/>} />
 
-        {/* <!-- Create Page (Only for logged-in users) --> */}
-        <section id="create">
-          <div className="form">
-            <img className="border" src="./images/border.png" alt="" />
-            <h2>Add Solution</h2>
-            <form className="create-form">
-              <input
-                type="text"
-                name="type"
-                id="type"
-                placeholder="Solution Type"
-              />
-              <input
-                type="text"
-                name="image-url"
-                id="image-url"
-                placeholder="Image URL"
-              />
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Description"
-                // rows="2"
-                // cols="10"
-              ></textarea>
-              <textarea
-                id="more-info"
-                name="more-info"
-                placeholder="more Info"
-                // rows="2"
-                // cols="10"
-              ></textarea>
-              <button type="submit">Add Solution</button>
-            </form>
-          </div>
-        </section>
-        {/* <!-- Edit Page (Only for logged-in users) --> */}
-        <section id="edit">
-          <div className="form">
-            <img className="border" src="./images/border.png" alt="" />
-            <h2>Edit Solution</h2>
-            <form className="edit-form">
-              <input
-                type="text"
-                name="type"
-                id="type"
-                placeholder="Solution Type"
-              />
-              <input
-                type="text"
-                name="image-url"
-                id="image-url"
-                placeholder="Image URL"
-              />
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Description"
-                // rows="2"
-                // cols="10"
-              ></textarea>
-              <textarea
-                id="more-info"
-                name="more-info"
-                placeholder="more Info"
-                // rows="2"
-                // cols="10"
-              ></textarea>
-              <button type="submit">Edit</button>
-            </form>
-          </div>
-        </section>
+            <Route path="/create" element={<Create/>} />
 
-        {/* <!-- Details page --> */}
-        <section id="details">
-          <div id="details-wrapper">
-            <img
-              id="details-img"
-              src="./images/Bioremediation.png"
-              alt="example1"
-            />
-            <div>
-              <p id="details-type">Bioremediation</p>
-              <div id="info-wrapper">
-                <div id="details-description">
-                  <p id="description">
-                    Synthetic biology involves the design and construction of
-                    biological systems for useful purposes.
-                  </p>
-                  <p id="more-info">
-                    In the realm of environmental cleanup, synthetic biology can
-                    be employed to engineer microorganisms capable of degrading
-                    toxic pollutants. By introducing synthetic genes into
-                    bacteria or fungi, researchers can enhance their ability to
-                    break down pollutants such as hydrocarbons, pesticides, and
-                    industrial chemicals. These engineered microorganisms can be
-                    deployed in contaminated sites to accelerate the natural
-                    biodegradation process, offering a cost-effective and
-                    sustainable solution to environmental pollution.
-                  </p>
-                </div>
-              </div>
-              <h3>Like Solution:<span id="like">0</span></h3>
+            <Route path="/edit" element={<Edit/>} />
 
-              {/* <!--Edit and Delete are only for creator--> */}
-              <div id="action-buttons">
-                <a href="#" id="edit-btn">Edit</a>
-                <a href="#" id="delete-btn">Delete</a>
+            <Route path="/details/:id" element={<Details/>} />
 
-                {/* <!--Bonus - Only for logged-in users ( not authors )--> */}
-                <a href="#" id="like-btn">Like</a>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+        </Routes>
+
+        </main>
+
+    </AuthProvider>
+    
     </div>
-    <footer>
-      <p>RenewTech Cleanup</p>
-    </footer>
+    
+    <Footer/>
     </>
   );
 }
