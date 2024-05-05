@@ -27,7 +27,7 @@ export function gameHandler(event, fields, view, setGames, navigate) {
 
         post(routes.games, { title, category, maxLevel, imageUrl, summary })
         .then(data => {
-            console.log(data);
+            // console.log(data);
             
             setGames(prev => [...prev, data]);
             

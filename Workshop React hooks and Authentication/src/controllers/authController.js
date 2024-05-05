@@ -38,15 +38,15 @@ export function authenticationHandler(event, fields, view, setIsAuthenticated, n
 export function logoutHandler(event, setIsAuthenticated, navigate) {
     event.preventDefault();
  
-    get(routes.logout)
-    .then(() => {
+    // get(routes.logout)
+    // .then(() => {
         removeAuthData();
 
         setIsAuthenticated(false);
         
         navigate("/");
-    })
-    .catch(err => {
-        console.error(err.code, err.message);
-    });
+    // })
+    // .catch(err => {
+    //     console.error(err.code, err.message);
+    // });
 }
