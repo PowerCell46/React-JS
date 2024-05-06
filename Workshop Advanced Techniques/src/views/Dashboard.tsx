@@ -1,4 +1,11 @@
+import { getAllSolutions, solutionData } from "../controllers/solutionsController";
+
 export default function Dashboard() {
+  getAllSolutions()
+  .then((data: solutionData[])=> console.log(data)
+  )
+  .catch(err => console.error(err));
+
     return (
         <>
         <h2>Solutions</h2>

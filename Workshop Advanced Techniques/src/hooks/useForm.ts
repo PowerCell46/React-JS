@@ -13,8 +13,8 @@ export default function useForm(formFields:formField[]) {
         }, {} as Fields)
     );
     
-    function onFieldChangeHandler(event: React.ChangeEvent<HTMLInputElement>, fieldName: string) {
-        // console.log(fieldName, event.target.value);
+    function onFieldChangeHandler<T extends HTMLInputElement | HTMLTextAreaElement>(event: React.ChangeEvent<T>, fieldName: string) {
+       // console.log(fieldName, event.target.value);
         
         setFields(prev => ({
             ...prev,

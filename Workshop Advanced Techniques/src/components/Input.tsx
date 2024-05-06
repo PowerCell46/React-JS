@@ -1,6 +1,6 @@
 import { formField } from "../utils/formFields";
 
-interface InputProps {
+export interface InputProps {
   inputData: formField;
   value: string,
   onFieldChangeHandler: (fieldName: React.ChangeEvent<HTMLInputElement>, value: string) => void;

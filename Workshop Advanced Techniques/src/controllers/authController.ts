@@ -28,7 +28,7 @@ export function authenticationHandler(
         return alert("All fields are required!");
     }
     
-    if (fields["re-password"]) {
+    if (fields["re-password"] !== undefined) {
         let repeatPassword: string = fields["re-password"];
         repeatPassword = repeatPassword.trim();
 
@@ -39,8 +39,8 @@ export function authenticationHandler(
             return alert("Password and Repeat Password must match!");
         }
     }
-
-    post(fields["re-password"] ? urlEndpoints.register : urlEndpoints.login, {email, password})
+    
+    post<authenticationData>(fields["re-password"] !== undefined ? urlEndpoints.register : urlEndpoints.login, {email, password})
     .then((data: authenticationData) => {
         setAuthData(data.accessToken, data._id);
 
@@ -56,7 +56,7 @@ export function logoutHandler(
             event: React.MouseEvent<HTMLAnchorElement>, 
             setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>, 
             navigate:NavigateFunction
-        ) {
+        ): void {
     event.preventDefault();
 
     removeAuthData();

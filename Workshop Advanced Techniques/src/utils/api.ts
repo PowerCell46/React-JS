@@ -2,14 +2,17 @@ import { getAuthToken } from "./authUtils";
 import { METHODS_WITH_BODY, headerToken } from "./constants";
 
 
-async function api<T>(url: string, method: string, body?: T): Promise<T> {
+async function api<T>(url: string, method: string, body?: any): Promise<T> {
     let headers: { [key: string]: string } = {};
 
-    if (METHODS_WITH_BODY.includes(method)) headers["Content-type"] = "application/json";
+    if (METHODS_WITH_BODY.includes(method)) {
+        headers["Content-type"] = "application/json";
+    }
 
     const token = getAuthToken();
-
-    if (token !== null) headers[headerToken] = token;
+    if (token !== null) {
+        headers[headerToken] = token;
+    }
 
     try {
         const response = await fetch(url, {
@@ -17,27 +20,22 @@ async function api<T>(url: string, method: string, body?: T): Promise<T> {
             headers,
             body: body ? JSON.stringify(body) : undefined
         });
-        const jsonData: any = await response.json();
+
+        const jsonData = await response.json();
 
         if (!response.ok) {
-            alert(jsonData.message);
-
-            const errorMessage = jsonData.message ? 
-                `HTTP error ${response.status}: ${jsonData.message}` 
-            : 
+            const errorMessage = jsonData.message ?
+                `HTTP error ${response.status}: ${jsonData.message}` :
                 `HTTP error ${response.status}: Unknown error`;
             console.error(errorMessage);
-
-            throw {code: response.status, message: jsonData.message || response.statusText};
+            throw new Error(errorMessage);
         }
 
-        return jsonData as T;
-    
+        return jsonData as T; // Consider using runtime validation or type guards here
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error(`Error in POST request: ${error.message}`);
+            console.error(`Error in request: ${error.message}`);
             throw error;
-
         } else {
             console.error(`An unknown error occurred: ${String(error)}`);
             throw new Error('An unknown error occurred');
@@ -45,12 +43,10 @@ async function api<T>(url: string, method: string, body?: T): Promise<T> {
     }
 }
 
-export const get = (url: string) => api(url, "GET", undefined);
 
-export const post = (url: string, body: any) => api(url, "POST", body);
+export const get = <T>(url: string): Promise<T> => api<T>(url, "GET");
+export const post = <T>(url: string, body: any): Promise<T> => api<T>(url, "POST", body);
+export const put = <T>(url: string, body: any): Promise<T> => api<T>(url, "PUT", body);
+export const patch = <T>(url: string, body: any): Promise<T> => api<T>(url, "PATCH", body);
+export const del = <T>(url: string): Promise<T> => api<T>(url, "DELETE");
 
-export const put = (url: string, body: any) => api(url, "PUT", body);
-
-export const patch = (url: string, body: any) => api(url, "PATCH", body);
-
-export const del = (url: string) => api(url, "DELETE", undefined);
