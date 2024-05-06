@@ -15,7 +15,7 @@ export default function Register() {
     return (
         <section id="register">
         <div className="form">
-          <img className="border" src="./images/border.png" alt="" />
+          <img className="border" src="/images/border.png" alt="" />
           <h2>Register</h2>
 
           <form onSubmit={(event) => 
