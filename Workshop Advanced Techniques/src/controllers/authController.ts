@@ -1,6 +1,26 @@
-export function authenticationHandler(event: React.FormEvent<HTMLFormElement>, fields: any, view: string) {
-    event.preventDefault();
+import { NavigateFunction } from "react-router-dom";
+import { post } from "../utils/api";
+import { removeAuthData, setAuthData } from "../utils/authUtils";
+import { urlEndpoints } from "../utils/constants";
 
+
+interface authenticationData {
+    email: string,
+    password: string,
+    _createdOn: number,
+    _id: string,
+    accessToken: string
+};
+
+
+export function authenticationHandler(
+            event: React.FormEvent<HTMLFormElement>, 
+            fields: any, 
+            setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>, 
+            navigate:NavigateFunction
+        ): void {
+    event.preventDefault();
+    
     let {email, password} = fields;
     email = email.trim(); password = password.trim();
 
@@ -8,7 +28,7 @@ export function authenticationHandler(event: React.FormEvent<HTMLFormElement>, f
         return alert("All fields are required!");
     }
     
-    if (view === "Register") {
+    if (fields["re-password"]) {
         let repeatPassword: string = fields["re-password"];
         repeatPassword = repeatPassword.trim();
 
@@ -20,5 +40,28 @@ export function authenticationHandler(event: React.FormEvent<HTMLFormElement>, f
         }
     }
 
+    post(fields["re-password"] ? urlEndpoints.register : urlEndpoints.login, {email, password})
+    .then((data: authenticationData) => {
+        setAuthData(data.accessToken, data._id);
 
+        setIsAuthenticated(true);
+
+        navigate("/");
+    })
+    .catch(err => console.error(err));
+}
+
+
+export function logoutHandler(
+            event: React.MouseEvent<HTMLAnchorElement>, 
+            setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>, 
+            navigate:NavigateFunction
+        ) {
+    event.preventDefault();
+
+    removeAuthData();
+
+    setIsAuthenticated(false);
+
+    navigate("/");
 }

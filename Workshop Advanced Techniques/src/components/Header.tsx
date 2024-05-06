@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutHandler } from "../controllers/authController";
 
 
 export default function Header() {
-  const {isAuthenticated} = useContext(AuthContext);
+  const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+  const navigate = useNavigate();
   
     return (
         <header>
@@ -19,7 +21,7 @@ export default function Header() {
           {isAuthenticated ? 
             <div className="user">
               <Link to="/create">Add Solution</Link>
-              <Link to="javascript:void(0)">Logout</Link>
+              <Link onClick={(event) => logoutHandler(event, setIsAuthenticated, navigate)} to="/">Logout</Link>
             </div>  
           :
             <div className="guest">

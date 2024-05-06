@@ -1,12 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import { loginFormFields } from "../utils/formFields";
 import useForm from "../hooks/useForm";
 import { authenticationHandler } from "../controllers/authController";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 
 
 export default function Login() {
+  const {setIsAuthenticated} = useContext(AuthContext);
   const {fields, onFieldChangeHandler} = useForm(loginFormFields);
+  const navigate = useNavigate();
 
     return (
         <section id="login">
@@ -14,7 +18,9 @@ export default function Login() {
           <img className="border" src="./images/border.png" alt="" />
           <h2>Login</h2>
 
-          <form onSubmit={(event) => authenticationHandler(event, fields, "Login")} className="login-form">
+          <form onSubmit={(event) => 
+              authenticationHandler(event, fields, setIsAuthenticated, navigate)}
+          className="login-form">
 
             {loginFormFields.map(
                 field => 
