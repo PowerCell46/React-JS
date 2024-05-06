@@ -1,16 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { getAllSolutions, solutionData } from "../controllers/solutionsController";
-
-
-interface SolutionsProviderProps {
-    children: ReactNode;
-}
-
-
-interface SolutionsContextType {
-    solutions: solutionData[];
-    setSolutions: React.Dispatch<React.SetStateAction<solutionData[]>>;
-}
+import { createContext, useEffect, useState } from "react";
+import { getAllSolutions } from "../controllers/solutionsController";
+import { solutionData, SolutionsContextType, SolutionsProviderProps } from "../utils/interfaces";
 
 
 export const SolutionContext = createContext<SolutionsContextType>({} as SolutionsContextType);

@@ -9,9 +9,9 @@ import { SolutionContext } from "../contexts/solutionContext";
 
 
 export default function Create() {
+  const navigate = useNavigate();
   const {setSolutions} = useContext(SolutionContext);
   const {fields, onFieldChangeHandler} = useForm(solutionsFormFields);
-  const navigate = useNavigate();
 
     return (
         <section id="create">
@@ -19,7 +19,9 @@ export default function Create() {
             <img className="border" src="/images/border.png" alt="" />
             <h2>Add Solution</h2>
 
-            <form onSubmit={(event) => solutionHandler(event, fields, "Create", navigate, setSolutions)} className="create-form">
+            <form onSubmit={(event) => 
+                solutionHandler(event, fields, "Create", navigate, setSolutions)}
+            className="create-form">
 
               {solutionsFormFields
               .filter(field => field.fieldType !== "textarea")

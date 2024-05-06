@@ -2,15 +2,7 @@ import { NavigateFunction } from "react-router-dom";
 import { post } from "../utils/api";
 import { removeAuthData, setAuthData } from "../utils/authUtils";
 import { urlEndpoints } from "../utils/constants";
-
-
-interface authenticationData {
-    email: string,
-    password: string,
-    _createdOn: number,
-    _id: string,
-    accessToken: string
-};
+import { authenticationData } from "../utils/interfaces";
 
 
 export function authenticationHandler(
@@ -18,13 +10,13 @@ export function authenticationHandler(
             fields: any, 
             setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>, 
             navigate:NavigateFunction
-        ): void {
+): void {
     event.preventDefault();
     
     let {email, password} = fields;
-    email = email.trim(); password = password.trim();
+    email = email.trim(); password = password.trim(); // sanitization
 
-    if (!email || !password) {
+    if (!email || !password) { // validation
         return alert("All fields are required!");
     }
     
@@ -32,10 +24,10 @@ export function authenticationHandler(
         let repeatPassword: string = fields["re-password"];
         repeatPassword = repeatPassword.trim();
 
-        if (!repeatPassword) {
+        if (!repeatPassword) { // validation
             return alert("All fields are required!");
 
-        } else if (repeatPassword !== password) {
+        } else if (repeatPassword !== password) { // validation
             return alert("Password and Repeat Password must match!");
         }
     }
@@ -56,7 +48,7 @@ export function logoutHandler(
             event: React.MouseEvent<HTMLAnchorElement>, 
             setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>, 
             navigate:NavigateFunction
-        ): void {
+): void {
     event.preventDefault();
 
     removeAuthData();

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formField } from "../utils/formFields";
+import { formField } from "../utils/interfaces";
 
 
 export default function useForm(formFields:formField[]) {

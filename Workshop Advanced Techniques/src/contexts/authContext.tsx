@@ -1,15 +1,7 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getUserId, isUserAuthenticated } from "../utils/authUtils";
+import { AuthContextType, AuthProviderProps } from "../utils/interfaces";
 
-interface AuthProviderProps {
-    children: ReactNode;
-}
-
-interface AuthContextType {
-    isAuthenticated: boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-    userId: string|null
-}
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType); 
 

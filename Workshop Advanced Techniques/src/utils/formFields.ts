@@ -1,9 +1,4 @@
-export interface formField {
-    fieldName: string,
-    fieldId: string,
-    fieldType: string, 
-    placeholder: string
-};
+import { formField } from "./interfaces";
 
 
 export const registerFormFields:formField[] = [

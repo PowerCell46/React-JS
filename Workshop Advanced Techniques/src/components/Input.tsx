@@ -1,10 +1,4 @@
-import { formField } from "../utils/formFields";
-
-export interface InputProps {
-  inputData: formField;
-  value: string,
-  onFieldChangeHandler: (fieldName: React.ChangeEvent<HTMLInputElement>, value: string) => void;
-};
+import { InputProps } from "../utils/interfaces";
 
 
 export default function Input({ inputData, value, onFieldChangeHandler }: InputProps) {

@@ -1,14 +1,7 @@
-import { formField } from "../utils/formFields";
+import { TextAreaProps } from "../utils/interfaces";
 
 
-export interface InputProps {
-    inputData: formField;
-    value: string,
-    onFieldChangeHandler: (fieldName: React.ChangeEvent<HTMLTextAreaElement>, value: string) => void;
-};
-
-
-export default function Textarea({ inputData, value, onFieldChangeHandler }: InputProps) {
+export default function Textarea({ inputData, value, onFieldChangeHandler }: TextAreaProps) {
     return (
         <textarea
             id={inputData.fieldId}

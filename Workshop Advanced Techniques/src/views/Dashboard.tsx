@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 import { SolutionContext } from "../contexts/solutionContext";
-import { getAllSolutions, solutionData } from "../controllers/solutionsController";
+import { getAllSolutions } from "../controllers/solutionsController";
 import Solution from "../components/Solution";
+import { solutionData } from "../utils/interfaces";
 
 
 export default function Dashboard() {
@@ -15,7 +16,7 @@ export default function Dashboard() {
   
     return (
         <>
-        <h2>Solutions</h2>
+          <h2>Solutions</h2>
           
           {solutions.length > 0 ?
             <section id="solutions">

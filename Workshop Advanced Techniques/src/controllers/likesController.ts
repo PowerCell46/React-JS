@@ -1,5 +1,6 @@
 import { get, post } from "../utils/api";
 import { urlEndpoints } from "../utils/constants";
+import { likeData } from "../utils/interfaces";
 
 
 export function getSolutionLikes(id: string|undefined): Promise<number> {
@@ -7,16 +8,8 @@ export function getSolutionLikes(id: string|undefined): Promise<number> {
 }
 
 
-export function hasUserLiked(id: string|undefined, userId: string): Promise<number> {
+export function hasUserLiked(id: string|undefined, userId: string): Promise<0|1> {
     return get(`${urlEndpoints.likes}?where=solutionId%3D%22${id}%22%20and%20_ownerId%3D%22${userId}%22&count`);
-}
-
-
-interface likeData {
-    _ownerId: string,
-    solutionId: string,
-    _createdOn: number,
-    _id: string
 }
 
 
@@ -25,7 +18,7 @@ export function likeHandler(
         solutionId: string|undefined,
         setNumberOfLikes: React.Dispatch<React.SetStateAction<number>>,
         hasLiked: boolean
-) {
+):void {
     event.preventDefault();
 
     post<likeData>(urlEndpoints.likes, {solutionId})

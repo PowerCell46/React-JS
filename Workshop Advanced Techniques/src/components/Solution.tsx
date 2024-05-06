@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
-import { solutionData } from "../controllers/solutionsController";
-
-
-interface SolutionProps {
-    solution: solutionData;
-}
+import { SolutionProps } from "../utils/interfaces";
 
 
 export default function Solution({ solution }: SolutionProps) {

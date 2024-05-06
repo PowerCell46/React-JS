@@ -4,11 +4,8 @@ import { SolutionContext } from "../contexts/solutionContext";
 import { AuthContext } from "../contexts/authContext";
 import { deleteSolutionHandler } from "../controllers/solutionsController";
 import { getSolutionLikes, hasUserLiked, likeHandler } from "../controllers/likesController";
+import { Params } from "../utils/interfaces";
 
-interface Params {
-  id?: string;
-  [key: string]: string | undefined;
-}
 
 export default function Details() {
   const navigate = useNavigate();
@@ -20,6 +17,7 @@ export default function Details() {
   const {userId} = useContext(AuthContext);
   const isUserOwner:boolean = userId === currentSolution?._ownerId;
   const isLoggedIn:boolean = userId !== null;
+  
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [hasLiked, setHasLiked] = useState(true);
 

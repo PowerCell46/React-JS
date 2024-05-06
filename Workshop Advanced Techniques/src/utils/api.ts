@@ -31,11 +31,16 @@ async function api<T>(url: string, method: string, body?: any): Promise<T> {
             throw new Error(errorMessage);
         }
 
-        return jsonData as T; // Consider using runtime validation or type guards here
+        return jsonData as T;
+
     } catch (error: unknown) {
         if (error instanceof Error) {
+            alert(error.message);
+            
             console.error(`Error in request: ${error.message}`);
+            
             throw error;
+
         } else {
             console.error(`An unknown error occurred: ${String(error)}`);
             throw new Error('An unknown error occurred');
@@ -45,7 +50,11 @@ async function api<T>(url: string, method: string, body?: any): Promise<T> {
 
 
 export const get = <T>(url: string): Promise<T> => api<T>(url, "GET");
+
 export const post = <T>(url: string, body: any): Promise<T> => api<T>(url, "POST", body);
+
 export const put = <T>(url: string, body: any): Promise<T> => api<T>(url, "PUT", body);
+
 export const patch = <T>(url: string, body: any): Promise<T> => api<T>(url, "PATCH", body);
+
 export const del = <T>(url: string): Promise<T> => api<T>(url, "DELETE");

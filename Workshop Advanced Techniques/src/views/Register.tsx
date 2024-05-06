@@ -22,11 +22,10 @@ export default function Register() {
             authenticationHandler(event, fields, setIsAuthenticated, navigate)} 
           className="register-form">
             
-            {registerFormFields.map(
-                field => 
-                  <Input key={field.fieldId} inputData={field} 
-                    value={fields[field.fieldName]} onFieldChangeHandler={onFieldChangeHandler}
-                  />
+            {registerFormFields.map(field => 
+                <Input key={field.fieldId} inputData={field} 
+                  value={fields[field.fieldName]} onFieldChangeHandler={onFieldChangeHandler}
+                />
             )}
 
             <button type="submit">register</button>

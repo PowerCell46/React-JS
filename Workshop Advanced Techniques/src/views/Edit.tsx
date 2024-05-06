@@ -5,8 +5,9 @@ import useForm from "../hooks/useForm";
 import { solutionsFormFields } from "../utils/formFields";
 import Input from "../components/Input";
 import Textarea from "../components/Textarea";
-import { getSingleSolution, solutionData, solutionHandler } from "../controllers/solutionsController";
+import { getSingleSolution, handleSettingStartingValue, solutionHandler } from "../controllers/solutionsController";
 import { useNavigate } from "react-router-dom";
+import { solutionData } from "../utils/interfaces";
 
 
 export default function Edit() {
@@ -19,20 +20,11 @@ export default function Edit() {
    
   useEffect(() => {
     if (currentSolution) {
-      setFields(prev => ({...prev, type: currentSolution.type || ''}));
-      setFields(prev => ({...prev, description: currentSolution.description || ''}));
-      setFields(prev => ({...prev, "image-url": currentSolution.imageUrl || ''}));
-      setFields(prev => ({...prev, "more-info": currentSolution.learnMore || ''}));
-      setFields(prev => ({...prev, id: currentSolution._id || ''})); 
+      handleSettingStartingValue(setFields, currentSolution);
+       
     } else {
       getSingleSolution(id)
-      .then((data: solutionData) => {
-        setFields(prev => ({...prev, type: data.type || ''}));
-        setFields(prev => ({...prev, description: data.description || ''}));
-        setFields(prev => ({...prev, "image-url": data.imageUrl || ''}));
-        setFields(prev => ({...prev, "more-info": data.learnMore || ''}));
-        setFields(prev => ({...prev, id: data._id || ''}));
-      })
+      .then((data: solutionData) => handleSettingStartingValue(setFields, data))
       .catch(err => console.error(err));      
     }
   }, []);

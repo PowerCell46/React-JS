@@ -18,36 +18,36 @@ function App() {
     <>
     <div id="wrapper">
 
-  <AuthProvider>
-  <SolutionsProvider>
-    
-    <Header/>
-
-        <main>
+      <AuthProvider>
+      <SolutionsProvider>
         
-        <Routes>
-            <Route path="/" element={<Home/>} />
+        <Header/>
+
+            <main>
+            
+            <Routes>
+                <Route path="/" element={<Home/>} />
 
 
-            <Route path="/register" element={<Register/>} />
+                <Route path="/register" element={<Register/>} />
 
-            <Route path="/login" element={<Login/>} />
+                <Route path="/login" element={<Login/>} />
 
 
-            <Route path="/dashboard" element={<Dashboard/>} />
+                <Route path="/dashboard" element={<Dashboard/>} />
 
-            <Route path="/create" element={<Create/>} />
+                <Route path="/create" element={<Create/>} />
 
-            <Route path="/edit/:id" element={<Edit/>} />
+                <Route path="/edit/:id" element={<Edit/>} />
 
-            <Route path="/details/:id" element={<Details/>} />
+                <Route path="/details/:id" element={<Details/>} />
 
-        </Routes>
+            </Routes>
 
-        </main>
+            </main>
 
-    </SolutionsProvider>
-    </AuthProvider>
+        </SolutionsProvider>
+        </AuthProvider>
     
     </div>
     

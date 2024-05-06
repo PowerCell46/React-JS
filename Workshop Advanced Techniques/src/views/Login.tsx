@@ -22,11 +22,10 @@ export default function Login() {
               authenticationHandler(event, fields, setIsAuthenticated, navigate)}
           className="login-form">
 
-            {loginFormFields.map(
-                field => 
-                  <Input key={field.fieldId} inputData={field}
-                    value={fields[field.fieldName]} onFieldChangeHandler={onFieldChangeHandler}
-                  />
+            {loginFormFields.map(field => 
+                <Input key={field.fieldId} inputData={field}
+                  value={fields[field.fieldName]} onFieldChangeHandler={onFieldChangeHandler}
+                />
             )}
 
             <button type="submit">login</button>
