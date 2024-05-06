@@ -49,4 +49,3 @@ export const post = <T>(url: string, body: any): Promise<T> => api<T>(url, "POST
 export const put = <T>(url: string, body: any): Promise<T> => api<T>(url, "PUT", body);
 export const patch = <T>(url: string, body: any): Promise<T> => api<T>(url, "PATCH", body);
 export const del = <T>(url: string): Promise<T> => api<T>(url, "DELETE");
-

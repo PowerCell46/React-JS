@@ -9,6 +9,7 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import { AuthProvider } from "./contexts/authContext";
+import { SolutionsProvider } from "./contexts/solutionContext";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <div id="wrapper">
 
   <AuthProvider>
+  <SolutionsProvider>
     
     <Header/>
 
@@ -44,6 +46,7 @@ function App() {
 
         </main>
 
+    </SolutionsProvider>
     </AuthProvider>
     
     </div>
