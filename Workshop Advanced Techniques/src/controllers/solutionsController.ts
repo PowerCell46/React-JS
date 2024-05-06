@@ -49,7 +49,7 @@ interface DeleteData {
 
 export function deleteSolutionHandler(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    id: string,
+    id: string | undefined,
     navigate: NavigateFunction
 ) {
     event.preventDefault();

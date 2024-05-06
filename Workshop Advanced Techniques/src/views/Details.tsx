@@ -1,20 +1,37 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { SolutionContext } from "../contexts/solutionContext";
 import { AuthContext } from "../contexts/authContext";
 import { deleteSolutionHandler } from "../controllers/solutionsController";
+import { getSolutionLikes, hasUserLiked, likeHandler } from "../controllers/likesController";
 
+interface Params {
+  id?: string;
+  [key: string]: string | undefined;
+}
 
 export default function Details() {
-  const {id} = useParams();
+  const navigate = useNavigate();
+
+  const { id }: Params = useParams<Params>() as Params;
   const {solutions} = useContext(SolutionContext);
   const currentSolution = solutions.find(solution => solution._id === id);
   
   const {userId} = useContext(AuthContext);
-  const isUserOwner = userId === currentSolution?._ownerId;
-  const isLoggedIn = userId !== null;
-  
-  const navigate = useNavigate();
+  const isUserOwner:boolean = userId === currentSolution?._ownerId;
+  const isLoggedIn:boolean = userId !== null;
+  const [numberOfLikes, setNumberOfLikes] = useState(0);
+  const [hasLiked, setHasLiked] = useState(true);
+
+  getSolutionLikes(id)
+  .then((numOfLikes:number) => setNumberOfLikes(numOfLikes))
+  .catch(err => console.error(err));
+
+  if (isLoggedIn && userId !== null) {
+    hasUserLiked(id, userId)
+    .then((currUserNumLikes: number) => setHasLiked(currUserNumLikes === 1))
+    .catch(err => console.error(err));
+  }
   
     return (
         <section id="details">
@@ -37,7 +54,7 @@ export default function Details() {
                 </div>
               </div>
 
-              <h3>Like Solution:<span id="like">0</span></h3>
+              <h3>Like Solution:<span id="like">{numberOfLikes}</span></h3>
 
               <div id="action-buttons">
                 {isUserOwner ? 
@@ -49,8 +66,8 @@ export default function Details() {
                   null  
                 }
               
-                {!isUserOwner && isLoggedIn ? 
-                  <a href="#" id="like-btn">Like</a>
+                {!isUserOwner && isLoggedIn && !hasLiked ? 
+                  <Link onClick={(event) => likeHandler(event, id, setNumberOfLikes, hasLiked)} to={`/like/${currentSolution?._id}`} id="like-btn">Like</Link>
                 :
                   null
                 }

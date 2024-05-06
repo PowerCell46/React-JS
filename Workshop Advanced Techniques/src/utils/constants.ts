@@ -12,5 +12,6 @@ export const METHODS_WITH_BODY = ["POST", "PUT", "PATCH"];
 export const urlEndpoints = {
     register: `${BASE_URL}/users/register`,
     login: `${BASE_URL}/users/login`,
-    solutions: `${BASE_URL}/data/solutions`
+    solutions: `${BASE_URL}/data/solutions`,
+    likes: `${BASE_URL}/data/likes`
 };
