@@ -1,45 +1,63 @@
+import { useContext } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { SolutionContext } from "../contexts/solutionContext";
+import { AuthContext } from "../contexts/authContext";
+import { deleteSolutionHandler } from "../controllers/solutionsController";
+
+
 export default function Details() {
+  const {id} = useParams();
+  const {solutions} = useContext(SolutionContext);
+  const currentSolution = solutions.find(solution => solution._id === id);
+  
+  const {userId} = useContext(AuthContext);
+  const isUserOwner = userId === currentSolution?._ownerId;
+  const isLoggedIn = userId !== null;
+  
+  const navigate = useNavigate();
+  
     return (
         <section id="details">
           <div id="details-wrapper">
             <img
               id="details-img"
-              src="./images/Bioremediation.png"
-              alt="example1"
+              src={currentSolution?.imageUrl}
+              alt={currentSolution?.type}
             />
             <div>
-              <p id="details-type">Bioremediation</p>
+              <p id="details-type">{currentSolution?.type}</p>
               <div id="info-wrapper">
                 <div id="details-description">
                   <p id="description">
-                    Synthetic biology involves the design and construction of
-                    biological systems for useful purposes.
+                    {currentSolution?.description}
                   </p>
                   <p id="more-info">
-                    In the realm of environmental cleanup, synthetic biology can
-                    be employed to engineer microorganisms capable of degrading
-                    toxic pollutants. By introducing synthetic genes into
-                    bacteria or fungi, researchers can enhance their ability to
-                    break down pollutants such as hydrocarbons, pesticides, and
-                    industrial chemicals. These engineered microorganisms can be
-                    deployed in contaminated sites to accelerate the natural
-                    biodegradation process, offering a cost-effective and
-                    sustainable solution to environmental pollution.
+                    {currentSolution?.learnMore}
                   </p>
                 </div>
               </div>
+
               <h3>Like Solution:<span id="like">0</span></h3>
 
-              {/* <!--Edit and Delete are only for creator--> */}
               <div id="action-buttons">
-                <a href="#" id="edit-btn">Edit</a>
-                <a href="#" id="delete-btn">Delete</a>
-
-                {/* <!--Bonus - Only for logged-in users ( not authors )--> */}
-                <a href="#" id="like-btn">Like</a>
+                {isUserOwner ? 
+                  <>
+                    <Link to={`/edit/${currentSolution?._id}`} id="edit-btn">Edit</Link>
+                    <Link onClick={(event) => deleteSolutionHandler(event, currentSolution?._id, navigate)} to={`/delete/${currentSolution?._id}`} id="delete-btn">Delete</Link>
+                  </>
+                :
+                  null  
+                }
+              
+                {!isUserOwner && isLoggedIn ? 
+                  <a href="#" id="like-btn">Like</a>
+                :
+                  null
+                }
               </div>
+
             </div>
           </div>
         </section>
-    )
+    );
 }

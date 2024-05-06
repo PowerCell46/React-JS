@@ -6,6 +6,7 @@ interface SolutionProps {
     solution: solutionData;
 }
 
+
 export default function Solution({ solution }: SolutionProps) {
     return (
         <div className="solution">

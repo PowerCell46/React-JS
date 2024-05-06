@@ -22,5 +22,5 @@ export default function useForm(formFields:formField[]) {
         }));
     }
 
-    return {fields, onFieldChangeHandler};
+    return {fields, onFieldChangeHandler, setFields};
 }

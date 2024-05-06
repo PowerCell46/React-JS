@@ -13,7 +13,7 @@ export default function Textarea({ inputData, value, onFieldChangeHandler }: Inp
         <textarea
             id={inputData.fieldId}
             name={inputData.fieldName}
-            placeholder="Description"
+            placeholder={inputData.placeholder}
             rows={2} 
             cols={10}
             onChange={(event) => onFieldChangeHandler(event, inputData.fieldName)}

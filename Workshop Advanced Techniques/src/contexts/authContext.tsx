@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { isUserAuthenticated } from "../utils/authUtils";
+import { getUserId, isUserAuthenticated } from "../utils/authUtils";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -8,6 +8,7 @@ interface AuthProviderProps {
 interface AuthContextType {
     isAuthenticated: boolean;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    userId: string|null
 }
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType); 
@@ -22,7 +23,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const values: AuthContextType = {
         isAuthenticated,
-        setIsAuthenticated
+        setIsAuthenticated,
+        userId: getUserId()
     };
 
     return (

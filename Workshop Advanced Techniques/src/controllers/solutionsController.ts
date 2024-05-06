@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
-import { get, post } from "../utils/api";
+import { del, get, post } from "../utils/api";
 import { urlEndpoints } from "../utils/constants";
 
 
@@ -36,6 +36,32 @@ export function solutionHandler(event: React.FormEvent<HTMLFormElement>, fields:
     .catch(err => console.error(err));
 }
 
+
 export function getAllSolutions(): Promise<solutionData[]> {
     return get(urlEndpoints.solutions) as Promise<solutionData[]>;
+}
+
+
+interface DeleteData {
+    "_deletedOn": number;
+}
+
+
+export function deleteSolutionHandler(
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    id: string,
+    navigate: NavigateFunction
+) {
+    event.preventDefault();
+    const confirmation = confirm("Are you sure you want to delete this Solution?");
+
+    if (confirmation) {
+        del<DeleteData>(`${urlEndpoints.solutions}/${id}`)
+        .then(res => {
+            console.log(res);
+
+            navigate("/dashboard");
+        })
+        .catch(err => console.error(err));
+    }
 }
