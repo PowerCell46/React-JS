@@ -10,6 +10,7 @@ import { getAllGames } from "./controllers/gamesController"
 import Details from "./views/Details"
 import Catalogue from "./views/Catalogue"
 import Edit from "./views/Edit"
+import { AuthForbidden, AuthRequired } from "./components/ProtectedRoutes"
 
 
 function App() {
@@ -32,16 +33,36 @@ function App() {
         <main id="main-content">
           <Routes>        
 
-            <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated}/>}/>
-            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>}/>
+              {/* Authentication */}
+              <Route path="/register" element={
+                            <AuthForbidden isAuthenticated={isAuthenticated}>
+                                <Register setIsAuthenticated={setIsAuthenticated}/>
+                            </AuthForbidden>
+                            }/>
 
-            <Route path="/" element={<Home games={games} />} />
-            <Route path="/catalogue" element={<Catalogue games={games}/>}/>
-            
-            <Route path="/create" element={<Create setGames={setGames}/>}/>
-            <Route path="/details/:id" element={<Details setGames={setGames}/>}/>
-            <Route path="/edit/:id" element={<Edit setGames={setGames}/>}/>
+              <Route path="/login" element={
+                            <AuthForbidden isAuthenticated={isAuthenticated}>
+                                <Login setIsAuthenticated={setIsAuthenticated}/>
+                            </AuthForbidden>
+                            }/>
 
+              {/* Main Views */}
+              <Route path="/" element={<Home games={games} />} />
+              <Route path="/catalogue" element={<Catalogue games={games}/>}/>
+              
+              {/* Games Views */}
+              <Route path="/create" element={
+                            <AuthRequired isAuthenticated={isAuthenticated}>
+                                <Create setGames={setGames}/>
+                            </AuthRequired>
+                            }/>
+              <Route path="/details/:id" element={<Details setGames={setGames}/>}/>
+              
+              <Route path="/edit/:id" element={
+                            <AuthRequired isAuthenticated={isAuthenticated}>
+                                <Edit setGames={setGames}/>
+                            </AuthRequired>
+                            }/>
           </Routes>
         </main>
     </>

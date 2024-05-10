@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "../components/Input";
 import { authenticationHandler } from "../controllers/authController";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerFormFields } from "../utils/formFields";
 
 
@@ -45,7 +45,7 @@ export default function Register({setIsAuthenticated}) {
                     <input className="btn submit" type="submit" value="Register"/> 
 
                     <p className="field">
-                        <span>If you already have profile click <a href="#">here</a></span>
+                        <span>If you already have profile click <Link to="/login">here</Link></span>
                     </p>
                 </div>
             </form>
